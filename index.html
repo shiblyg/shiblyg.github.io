@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Research Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-light: #2d5a8a;
+            --accent: #d4af37;
+            --bg: #fafaf8;
+            --bg-alt: #f5f5f0;
+            --text: #2c3e50;
+            --text-light: #5a6c7d;
+            --border: #dfe3e8;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-content .affiliation {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #c5a028;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-placeholder {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Research Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .interest-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .interest-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .interest-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Publications */
+        .publication {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .publication:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            transform: translateX(4px);
+        }
+
+        .publication-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .publication-authors {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .publication-venue {
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .publication-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .pub-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .pub-link:hover {
+            color: var(--accent);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--bg-alt);
+            color: var(--text);
+            font-size: 0.85rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .project-content p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CV Section */
+        .cv-container {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .cv-section {
+            margin-bottom: 3rem;
+        }
+
+        .cv-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-section h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .cv-item {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border);
+        }
+
+        .cv-item h4 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .cv-item .institution {
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .cv-item .date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-item ul {
+            margin-left: 1.5rem;
+            color: var(--text-light);
+        }
+
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .contact-card p {
+            color: var(--text-light);
+        }
+
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Research Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#cv">CV</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Md Shibly Sadique</h1>
+                <p class="subtitle">PhD Candidate & Research Scientist Assistant</p>
+                <p class="affiliation">Department of Electrical and Computer Engineering | Old Dominion University</p>
+                <p>Advancing computational modeling for biomedical image analysis through deep learning, physics-informed modeling, and uncertainty quantification. My work focuses on brain tumor classification, survival prediction, and explainable AI for clinical applications.</p>
+                <div class="hero-buttons">
+                    <a href="#publications" class="btn btn-primary">View Publications</a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-placeholder">👤</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Interests -->
+    <section id="research">
+        <h2>Research Interests</h2>
+        <p class="section-subtitle">My work focuses on addressing fundamental questions in biomedical imaging and computational modeling</p>
+        <div class="interests-grid">
+            <div class="interest-card">
+                <h3>Biomedical Image Analysis</h3>
+                <p>Multi-modal and 3D volumetric MRI, functional MRI, and CT imaging. Specializing in registration, segmentation, and classification using physics-informed modeling (PDE), radiomics feature extraction, longitudinal disease progression modeling, uncertainty quantification, and explainable AI.</p>
+            </div>
+            <div class="interest-card">
+                <h3>Computer Vision & Deep Learning</h3>
+                <p>Advanced deep learning and classical image processing for biological structure detection. Automated segmentation and predictive modeling using U-Net, nnU-Net, Neural ODEs, uncertainty-aware frameworks, and generative models for medical imaging applications.</p>
+            </div>
+            <div class="interest-card">
+                <h3>Data Mining & Survival Analysis</h3>
+                <p>Survival and risk prediction using imaging biomarkers, prognostic modeling, inferential statistical modeling for interpretability, feature selection, and class-imbalanced data analysis. Focus on translating computational findings to clinical applications.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+        <h2>Publications</h2>
+        <p class="section-subtitle">Peer-reviewed articles, conference papers, and preprints</p>
+        
+        <div class="publication">
+            <div class="publication-title">Functional brain network identification in opioid use disorder using machine learning analysis of resting-state fMRI BOLD signals</div>
+            <div class="publication-authors">Ahmed Temtam, Megan A. Witherow, Liangsuo Ma, <strong>M. Shibly Sadique</strong>, F. Gerard Moeller, Khan M. Iftekharuddin</div>
+            <div class="publication-venue">Computers in Biology and Medicine, Volume 196, Part C, 2025</div>
+            <div class="publication-links">
+                <a href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&hl=en" class="pub-link">📄 View</a>
+                <a href="#" class="pub-link">🔗 DOI</a>
+            </div>
+        </div>
+
+        <div class="publication">
+            <div class="publication-title">Brain Tumor Recurrence vs. Radiation Necrosis Classification and Patient Survivability Prediction</div>
+            <div class="publication-authors"><strong>Sadique MS</strong>, Farzana W, Temtam A, Lappinen E, Vossough A, Iftekharuddin KM</div>
+            <div class="publication-venue">IEEE Journal of Biomedical and Health Informatics, June 2024</div>
+            <div class="publication-links">
+                <a href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&hl=en" class="pub-link">📄 PDF</a>
+                <a href="#" class="pub-link">🔗 DOI</a>
+            </div>
+        </div>
+
+        <div class="publication">
+            <div class="publication-title">Domain adaptive federated learning for multi-institution molecular mutation prediction and bias identification</div>
+            <div class="publication-authors">Farzana W, Witherow MA, Longoria I, <strong>Sadique MS</strong>, Temtam A, Iftekharuddin KM</div>
+            <div class="publication-venue">SPIE Medical Imaging 2024: Computer-Aided Diagnosis, Vol. 12927, 2024</div>
+            <div class="publication-links">
+                <a href="#" class="pub-link">📄 PDF</a>
+                <a href="#" class="pub-link">🔗 SPIE</a>
+            </div>
+        </div>
+
+        <div class="publication">
+            <div class="publication-title">Class activation mapping and uncertainty estimation in multi-organ segmentation</div>
+            <div class="publication-authors"><strong>Sadique MS</strong>, Farzana W, Temtam A, Iftekharuddin KM</div>
+            <div class="publication-venue">SPIE Medical Imaging 2023: Computer-Aided Diagnosis, Vol. 12465, 2023</div>
+            <div class="publication-links">
+                <a href="#" class="pub-link">📄 PDF</a>
+                <a href="#" class="pub-link">🎤 Slides</a>
+            </div>
+        </div>
+
+        <div class="publication">
+            <div class="publication-title">Brain tumor segmentation using neural ordinary differential equations with UNet-context encoding network</div>
+            <div class="publication-authors"><strong>Sadique MS</strong>, Rahman MM, Farzana W, Temtam A, Iftekharuddin KM</div>
+            <div class="publication-venue">International MICCAI Brainlesion Workshop, September 2022</div>
+            <div class="publication-links">
+                <a href="#" class="pub-link">📄 PDF</a>
+                <a href="#" class="pub-link">🎥 Talk</a>
+            </div>
+        </div>
+
+        <div class="publication">
+            <div class="publication-title">Radiomic texture feature descriptor to distinguish recurrent brain tumor from radiation necrosis using multimodal MRI</div>
+            <div class="publication-authors"><strong>Sadique MS</strong>, Temtam A, Lappinen E, Iftekharuddin KM</div>
+            <div class="publication-venue">SPIE Medical Imaging 2022: Computer-Aided Diagnosis, Vol. 12033, 2022</div>
+            <div class="publication-links">
+                <a href="#" class="pub-link">📄 PDF</a>
+                <a href="#" class="pub-link">🔗 SPIE</a>
+            </div>
+        </div>
+
+        <div class="publication">
+            <div class="publication-title">The brain tumor segmentation (BraTS) challenge 2023: Local synthesis of healthy brain tissue via inpainting</div>
+            <div class="publication-authors">Kofler F, Meissen F, Steinbauer F, Graf R, and others (including <strong>Sadique MS</strong>)</div>
+            <div class="publication-venue">arXiv preprint arXiv:2305.08992, May 2023</div>
+            <div class="publication-links">
+                <a href="#" class="pub-link">📄 arXiv</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Projects -->
+    <section id="projects">
+        <h2>Research Projects</h2>
+        <p class="section-subtitle">Current and ongoing research initiatives</p>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🧠</div>
+                <div class="project-content">
+                    <h3>Brain Tumor Segmentation and Validation</h3>
+                    <span class="project-status">NIH/NBIB Funded | Ongoing</span>
+                    <p>Developed UNCE-NODE, a Neural ODE-enhanced U-Net framework for multimodal MRI brain tumor segmentation with continuous-depth modeling. Reduced trainable parameters by ~30% while preserving accuracy. Applied uncertainty quantification to improve reliability and interpretability.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🎯</div>
+                <div class="project-content">
+                    <h3>Brain Tumor Recurrence Classification & Survival Prediction</h3>
+                    <span class="project-status">NIH/NBIB Funded | Ongoing</span>
+                    <p>Developed radiomics-based models to distinguish recurrent brain tumor from radiation necrosis (AUC = 0.892 ± 0.055). Applied copula-based censoring models for glioblastoma survival prediction, achieving cross-validated AUC ≈ 0.77 and improved risk stratification.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📊</div>
+                <div class="project-content">
+                    <h3>Uncertainty-Aware Multi-Organ Segmentation</h3>
+                    <span class="project-status">Ongoing</span>
+                    <p>Designed uncertainty quantification framework combining ensemble nnU-Nets with 5-fold cross-validation. Quantified predictive reliability using entropy and mutual information, enabling identification of low-confidence outputs for improved model interpretability.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔬</div>
+                <div class="project-content">
+                    <h3>Functional Brain Network Analysis in Opioid Use Disorder</h3>
+                    <span class="project-status">NIH Funded | Ongoing</span>
+                    <p>Extracted time-frequency features from rs-fMRI BOLD signals to localize aberrant neural activity. Applied Random Forest modeling to classify opioid use disorder vs. healthy controls, identifying functional networks with high discriminative power.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🧪</div>
+                <div class="project-content">
+                    <h3>Physics-Informed Tumor Growth Modeling</h3>
+                    <span class="project-status">Ongoing</span>
+                    <p>Examining sampling noise constraints in PDE-based tumor growth models. Proposed Resolvable Expressive Capacity (REC) framework with eigentask decomposition. Developed Bayesian inference framework for noise-aware digital twin models of tumor evolution.</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📡</div>
+                <div class="project-content">
+                    <h3>Slot-Loaded Microstrip Patch Antenna</h3>
+                    <span class="project-status">Completed (M.S. Thesis)</span>
+                    <p>Design, simulation, and measurement of slot-loaded microstrip patch antenna at 2.45 GHz. Built simulation capability and experimental setup for the Microwave & Optical Fiber Communications Lab at University of Dhaka.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV Section -->
+    <section id="cv">
+        <h2>Curriculum Vitae</h2>
+        <p class="section-subtitle">Education, experience, and achievements</p>
+        
+        <div class="cv-container">
+            <div class="cv-section">
+                <h3>Education</h3>
+                <div class="cv-item">
+                    <h4>PhD in Electrical and Computer Engineering</h4>
+                    <div class="institution">Old Dominion University, Norfolk, USA</div>
+                    <div class="date">August 2018 - Expected December 2025</div>
+                    <ul>
+                        <li>Dissertation: "Computational Modeling for Classification, Survivability Prediction in Recurrent Brain Tumor Integrating Biophysical Tumor Growth Models (PDE)"</li>
+                        <li>Advisor: Dr. Khan M. Iftekharuddin</li>
+                        <li>Focus: Biomedical image analysis, deep learning, uncertainty quantification, and survival prediction</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <h4>Master of Science in Electrical and Electronic Engineering</h4>
+                    <div class="institution">University of Dhaka, Dhaka, Bangladesh</div>
+                    <div class="date">2014 - 2016</div>
+                    <ul>
+                        <li>Thesis: "Design, Simulation, and Measurement of Slot-Loaded Microstrip Patch Antenna"</li>
+                        <li>Advisor: Dr. Anis Ahmed</li>
+                        <li>Fellowship: National Science, Information and Communication Technology (NSICT) Fellowship, 2015</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <h4>Bachelor of Science in Electrical and Electronic Engineering</h4>
+                    <div class="institution">University of Dhaka, Dhaka, Bangladesh</div>
+                    <div class="date">2010 - 2014</div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>Research Experience</h3>
+                <div class="cv-item">
+                    <h4>Research Assistant, Vision Lab</h4>
+                    <div class="institution">Old Dominion University, Norfolk, USA</div>
+                    <div class="date">August 2018 - Present</div>
+                    <ul>
+                        <li>Lead researcher on NIH/NBIB-funded projects in brain tumor analysis and medical image segmentation</li>
+                        <li>Developed novel deep learning frameworks (UNCE-NODE) reducing parameters by 30% while maintaining accuracy</li>
+                        <li>Published 15+ peer-reviewed papers in top-tier venues (IEEE JBHI, SPIE, MICCAI)</li>
+                        <li>Participated in international MICCAI challenges (BraTS 2021-2023), achieving 8th place in AMOS 2022</li>
+                        <li>Mentored 2 undergraduate researchers through NSF-REU program (2022, 2023)</li>
+                    </ul>
+                </div>
+
+                <div class="cv-item">
+                    <h4>Research Assistant, Microwave & Optical Fiber Communications Lab</h4>
+                    <div class="institution">University of Dhaka, Bangladesh</div>
+                    <div class="date">December 2014 - December 2016</div>
+                    <ul>
+                        <li>Built simulation capability and experimental setup for microwave antenna lab</li>
+                        <li>Designed and fabricated slot-loaded microstrip patch antennas at 2.45 GHz</li>
+                        <li>Published research in International Journal of Advanced Research in EEE&I</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>Honors & Awards</h3>
+                <div class="cv-item">
+                    <h4>SPIE Medical Imaging Student Conference Support</h4>
+                    <div class="institution">SPIE</div>
+                    <div class="date">2023</div>
+                </div>
+                <div class="cv-item">
+                    <h4>SPIE Medical Imaging Student Conference Support</h4>
+                    <div class="institution">SPIE</div>
+                    <div class="date">2022</div>
+                </div>
+                <div class="cv-item">
+                    <h4>8th Place - AMOS Challenge (Team Lead)</h4>
+                    <div class="institution">Multi-modal Abdominal Multi-Organ Segmentation Challenge</div>
+                    <div class="date">2022</div>
+                </div>
+                <div class="cv-item">
+                    <h4>NSICT Fellowship for M.S. Thesis</h4>
+                    <div class="institution">National Science, Information and Communication Technology, Bangladesh</div>
+                    <div class="date">2015</div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>Teaching & Mentoring</h3>
+                <div class="cv-item">
+                    <h4>Teaching Assistant - ECE Senior Design (ABET)</h4>
+                    <div class="institution">Old Dominion University</div>
+                    <div class="date">Fall 2021 - Present</div>
+                    <ul>
+                        <li>Developed course materials and prepared ABET outcome reports</li>
+                        <li>Graded projects and provided feedback via CANVAS</li>
+                    </ul>
+                </div>
+                <div class="cv-item">
+                    <h4>Teaching Assistant - Circuit Analysis, Linear Systems, Digital Image Processing</h4>
+                    <div class="institution">Old Dominion University</div>
+                    <div class="date">2019 - 2025</div>
+                    <ul>
+                        <li>Led labs and tutorials, designed MATLAB/Simulink exercises</li>
+                        <li>Conducted problem-solving classes and exam preparation sessions</li>
+                    </ul>
+                </div>
+                <div class="cv-item">
+                    <h4>NSF-REU Mentor</h4>
+                    <div class="institution">Old Dominion University</div>
+                    <div class="date">Summer 2022, 2023</div>
+                    <ul>
+                        <li>2023: Privacy-preserving federated learning for molecular mutation prediction</li>
+                        <li>2022: Medical image analysis for glioma prognosis prediction</li>
+                    </ul>
+                </div>
+                <div class="cv-item">
+                    <h4>Course Instructor - Circuit Analysis</h4>
+                    <div class="institution">Dhaka International University</div>
+                    <div class="date">Spring 2017, Fall 2017</div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>Service & Professional Activities</h3>
+                <div class="cv-item">
+                    <h4>Journal Reviewer</h4>
+                    <div class="institution">Franklin Open (Elsevier)</div>
+                    <div class="date">2023 - Present</div>
+                </div>
+                <div class="cv-item">
+                    <h4>Conference Reviewer</h4>
+                    <div class="institution">ICIEV & ICIVPR</div>
+                    <div class="date">2022 - Present</div>
+                </div>
+                <div class="cv-item">
+                    <h4>Professional Memberships</h4>
+                    <div class="institution">IEEE Graduate Student Member, SPIE Student Member</div>
+                    <div class="date">2018 - Present</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p class="section-subtitle">Get in touch for collaborations, questions, or opportunities</p>
+        <div class="contact-info">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <p><a href="mailto:msadi002@odu.edu">msadi002@odu.edu</a></p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📱</div>
+                <h3>Phone</h3>
+                <p>+1 (757) 895-6050</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🏢</div>
+                <h3>Office</h3>
+                <p>Department of Electrical and Computer Engineering<br>Old Dominion University<br>Norfolk, VA 23508</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">🔗</div>
+                <h3>Links</h3>
+                <p>
+                    <a href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&hl=en" target="_blank">Google Scholar</a><br>
+                    <a href="https://www.linkedin.com/in/md-shibly-sadique" target="_blank">LinkedIn</a><br>
+                    <a href="https://orcid.org/your-orcid" target="_blank">ORCID</a><br>
+                    <a href="https://www.researchgate.net/profile/Md-Sadique" target="_blank">ResearchGate</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Md Shibly Sadique. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Last updated: December 2024</p>
+    </footer>
+</body>
+</html>
