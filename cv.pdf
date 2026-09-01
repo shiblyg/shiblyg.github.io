@@ -1,0 +1,155 @@
+%PDF-1.4
+%
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Type /Catalog /Pages 4 0 R >>
+endobj
+4 0 obj
+<< /Type /Pages /Kids [6 0 R] /Count 1 >>
+endobj
+5 0 obj
+<< /Length 2914 >>
+stream
+BT
+/F1 10 Tf
+52 742 Td
+13 TL
+/F2 11 Tf
+(MD SHIBLY SADIQUE) Tj
+/F1 10 Tf
+T*
+(PhD Candidate | Biomedical Image Analysis | Clinical AI) Tj
+T*
+(msadi002@odu.edu | +1 \(757\) 895-6050 | Norfolk, Virginia) Tj
+T*
+(shiblyg.github.io | github.com/shiblyg) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(RESEARCH PROFILE) Tj
+/F1 10 Tf
+T*
+(Computational modeling for biomedical image analysis, with emphasis on brain tumor) Tj
+T*
+(  segmentation, recurrence classification, survival prediction, physics-informed models,) Tj
+T*
+(  domain adaptation, and uncertainty quantification.) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(EDUCATION) Tj
+/F1 10 Tf
+T*
+(PhD, Electrical & Computer Engineering ? Old Dominion University, 2018?July 2026 \(expected\)) Tj
+T*
+(M.Sc., Electrical & Electronic Engineering ? University of Dhaka, 2014?2016) Tj
+T*
+(B.Sc., Electrical & Electronic Engineering ? University of Dhaka, 2010?2014) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(RESEARCH EXPERIENCE) Tj
+/F1 10 Tf
+T*
+(Graduate Research Assistant, Vision Lab ? Old Dominion University, Aug 2018?present) Tj
+T*
+(? Developed UNCE-NODE, a neural ODE-enhanced U-Net with roughly 30% fewer trainable) Tj
+T*
+(  parameters.) Tj
+T*
+(? Built recurrence and survival models reaching AUC 0.892 and approximately 0.77,) Tj
+T*
+(  respectively.) Tj
+T*
+(? Designed uncertainty-aware ensemble nnU-Nets; team placed 8th in AMOS 2022.) Tj
+T*
+(? Studied adult-to-pediatric domain shift, reaching whole-tumor DSC 0.879.) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(SELECTED PUBLICATIONS) Tj
+/F1 10 Tf
+T*
+(1. Temtam et al., Functional brain network identification in opioid use disorder, Computers) Tj
+T*
+(  in Biology and Medicine, 2025.) Tj
+T*
+(2. Sadique et al., Brain tumor recurrence vs. radiation necrosis classification and patient) Tj
+T*
+(  survivability prediction, IEEE JBHI, 2024.) Tj
+T*
+(3. Sadique et al., Class activation mapping and uncertainty estimation in multi-organ) Tj
+T*
+(  segmentation, SPIE Medical Imaging, 2023.) Tj
+T*
+(4. Sadique et al., Brain tumor segmentation using neural ordinary differential equations,) Tj
+T*
+(  MICCAI Brainlesion, 2022.) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(TEACHING & MENTORING) Tj
+/F1 10 Tf
+T*
+(Teaching Assistant, Senior Design, 2021?present; Teaching Assistant, Circuits, Linear) Tj
+T*
+(  Systems & Signals, 2019?2025; Course Instructor, Circuit Analysis, 2017; NSF REU mentor,) Tj
+T*
+(  2022?2023.) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(TECHNICAL SKILLS) Tj
+/F1 10 Tf
+T*
+(Python, MATLAB, R; PyTorch, TensorFlow, Keras, scikit-learn; U-Net, nnU-Net, neural ODEs,) Tj
+T*
+(  transformers, domain adaptation; FSL, FreeSurfer, 3D Slicer, ANTs, SimpleITK; CUDA,) Tj
+T*
+(  Docker, Slurm/HPC.) Tj
+T*
+() Tj
+T*
+/F2 11 Tf
+(HONORS & SERVICE) Tj
+/F1 10 Tf
+T*
+(SPIE conference support \(2022, 2023\); AMOS 2022 8th place; NSICT Fellowship; IEEE and SPIE) Tj
+T*
+(  member; journal and conference reviewer.) Tj
+T*
+() Tj
+T*
+(Full details and canonical source: shiblyg.github.io/cv.tex) Tj
+T*
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 4 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000000209 00000 n 
+0000000266 00000 n 
+0000003202 00000 n 
+trailer
+<< /Size 7 /Root 3 0 R >>
+startxref
+3338
+%%EOF

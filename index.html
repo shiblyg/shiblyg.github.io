@@ -19,6 +19,21 @@
   a { color: #2b4c8c; text-decoration: none; }
   a:hover { color: #14181d; text-decoration: underline; text-underline-offset: 3px; }
   html { scroll-behavior: smooth; }
+  :focus-visible { outline: 3px solid #8ca8dc; outline-offset: 3px; }
+  @media (max-width: 760px) {
+    header > div { height: auto !important; min-height: 64px; padding: 12px 20px !important; align-items: flex-start !important; flex-direction: column; }
+    header nav { width: 100%; gap: 18px !important; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: none; }
+    header nav::-webkit-scrollbar { display: none; }
+    section > div, section#top { padding-left: 20px !important; padding-right: 20px !important; }
+    [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    #top { padding-top: 52px !important; }
+    #top h1 { font-size: clamp(36px, 11vw, 48px) !important; }
+    #top img { max-width: 420px; }
+    #publications [style*="grid-template-columns: 96px"] { gap: 8px !important; }
+    #cv [style*="grid-template-columns: 200px"] { gap: 22px !important; }
+    #contact > div > div:first-child { gap: 36px !important; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 </helmet>
 
@@ -49,7 +64,7 @@
         <p style="margin: 0 0 34px; font-size: 15px; line-height: 1.6; color: #6b7480; max-width: 58ch;">Department of Electrical &amp; Computer Engineering, Old Dominion University. Advised by Dr. Khan M. Iftekharuddin, Vision Lab.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px;">
           <a href="#publications" style="font-size: 13.5px; font-weight: 500; color: #fff; background: #14181d; padding: 12px 22px; border-radius: 2px;" style-hover="background: #2b4c8c; text-decoration: none;">Publications</a>
-          <a href="cv.html" style="font-size: 13.5px; font-weight: 500; color: #14181d; border: 1px solid #cfd5dc; padding: 12px 22px; border-radius: 2px;" style-hover="border-color: #14181d; text-decoration: none;">Curriculum vitae</a>
+          <a href="cv.pdf" style="font-size: 13.5px; font-weight: 500; color: #14181d; border: 1px solid #cfd5dc; padding: 12px 22px; border-radius: 2px;" style-hover="border-color: #14181d; text-decoration: none;">Download CV · PDF</a>
           <a href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&amp;hl=en" style="font-size: 13.5px; font-weight: 500; color: #14181d; border: 1px solid #cfd5dc; padding: 12px 22px; border-radius: 2px;" style-hover="border-color: #14181d; text-decoration: none;">Google Scholar</a>
         </div>
       </div>
@@ -432,7 +447,10 @@
     <div style="max-width: 1120px; margin: 0 auto; padding: 72px 40px 80px;">
       <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 22px; border-bottom: 2px solid #14181d; margin-bottom: 48px;">
         <h2 style="margin: 0; font-size: 27px; font-weight: 600; letter-spacing: -0.02em;">Curriculum vitae</h2>
-        <a href="cv.html" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;">Full CV · print or save as PDF →</a>
+        <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end;">
+          <a href="cv.pdf" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;">Download PDF →</a>
+          <a href="cv.tex" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;">LaTeX source</a>
+        </div>
       </div>
 
       <div style="display: grid; grid-template-columns: 200px 1fr; gap: 40px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid #e2e6ea;">
@@ -672,7 +690,6 @@
 </x-dc>
 </body>
 </html>
-
 
 
 
