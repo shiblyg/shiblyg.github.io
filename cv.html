@@ -15,9 +15,17 @@
   doc-page:not(:defined) { visibility: hidden; }
   a { color: #2b4c8c; text-decoration: none; }
   a:hover { color: #14181d; text-decoration: underline; }
+  .cv-downloads { display: flex; justify-content: flex-end; gap: 16px; margin: 0 auto 14px; max-width: 8.5in; font-size: 9pt; }
+  @media print { .cv-downloads { display: none; } }
 </style>
 <script src="./doc-page.js"></script>
 </helmet>
+
+<nav class="cv-downloads" aria-label="CV downloads">
+  <a href="index.html">← Portfolio</a>
+  <a href="cv.pdf" download>Download PDF</a>
+  <a href="cv.tex" download>LaTeX source</a>
+</nav>
 
 <doc-page margin="0.7in">
 

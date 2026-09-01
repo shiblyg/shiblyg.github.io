@@ -1,0 +1,71 @@
+% Md Shibly Sadique — curriculum vitae
+% Build with: pdflatex cv.tex (run twice for stable links)
+\documentclass[10pt,letterpaper]{article}
+\usepackage[margin=0.65in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,enumitem,tabularx,xcolor,hyperref,titlesec}
+\definecolor{accent}{HTML}{2B4C8C}
+\definecolor{muted}{HTML}{4F5965}
+\hypersetup{colorlinks=true,urlcolor=accent,linkcolor=accent,pdfauthor={Md Shibly Sadique},pdftitle={Curriculum Vitae — Md Shibly Sadique}}
+\pagestyle{plain}\setlength{\parindent}{0pt}\setlength{\parskip}{2pt}
+\setlist[itemize]{leftmargin=*,nosep,topsep=3pt}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0pt}{}[\vspace{-4pt}\rule{\linewidth}{0.4pt}]
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\newcommand{\role}[3]{\textbf{#1}\hfill{\small\color{muted}#2}\\{\color{muted}#3}}
+\begin{document}
+{\LARGE\bfseries Md Shibly Sadique}\hfill
+\begin{tabular}{r}
+\href{mailto:msadi002@odu.edu}{msadi002@odu.edu} $\cdot$ +1 (757) 895-6050\\
+\href{https://shiblyg.github.io}{shiblyg.github.io} $\cdot$ \href{https://github.com/shiblyg}{github.com/shiblyg}\\
+Norfolk, Virginia 23508
+\end{tabular}
+
+\vspace{3pt}{\large PhD Candidate $\cdot$ Biomedical Image Analysis $\cdot$ Clinical AI}
+
+\section*{Research Profile}
+Computational modeling for biomedical image analysis, with emphasis on brain tumor segmentation, recurrence classification, patient survival prediction, physics-informed models, domain adaptation, and uncertainty quantification. Graduate Research Assistant in the Vision Lab at Old Dominion University.
+
+\section*{Education}
+\role{PhD, Electrical \& Computer Engineering}{2018--July 2026 (expected)}{Old Dominion University, Norfolk, VA; advisor: Dr. Khan M. Iftekharuddin}
+
+\role{M.Sc., Electrical \& Electronic Engineering}{2014--2016}{University of Dhaka, Bangladesh; thesis on a 2.45 GHz slot-loaded microstrip patch antenna}
+
+\role{B.Sc., Electrical \& Electronic Engineering}{2010--2014}{University of Dhaka, Bangladesh}
+
+\section*{Research Experience}
+\role{Graduate Research Assistant, Vision Lab}{Aug 2018--present}{Old Dominion University; NIH/NIBIB-funded biomedical imaging research}
+\begin{itemize}
+\item Developed UNCE-NODE, a neural ODE-enhanced U-Net with continuous-depth modeling and roughly 30\% fewer trainable parameters at comparable segmentation accuracy.
+\item Built multiresolution radiomic recurrence and survival models; recurrence classification reached AUC 0.892 and a copula survival model reached approximately 0.77 AUC.
+\item Designed uncertainty-aware ensemble nnU-Nets for multi-organ CT segmentation; team placed 8th in the AMOS 2022 challenge.
+\item Studied adult-to-pediatric domain shift with fractal context features, gradient-reversal alignment, and Monte-Carlo dropout, reaching whole-tumor DSC 0.879.
+\item Modeled functional brain networks in opioid use disorder from resting-state fMRI using time-frequency features and machine learning.
+\end{itemize}
+\role{Research Assistant, Microwave \& Optical Fiber Communications Lab}{Dec 2014--Dec 2016}{University of Dhaka, Bangladesh}
+\begin{itemize}\item Built simulation, fabrication, and measurement capability for microstrip patch antenna research.\end{itemize}
+
+\section*{Selected Publications}
+\begin{enumerate}[leftmargin=*,nosep]
+\item A. Temtam, M. A. Witherow, L. Ma, \textbf{M. S. Sadique}, et al. ``Functional brain network identification in opioid use disorder using machine learning analysis of resting-state fMRI BOLD signals.'' \emph{Computers in Biology and Medicine}, 2025.
+\item \textbf{M. S. Sadique}, W. Farzana, A. Temtam, E. Lappinen, A. Vossough, K. M. Iftekharuddin. ``Brain tumor recurrence vs. radiation necrosis classification and patient survivability prediction.'' \emph{IEEE Journal of Biomedical and Health Informatics}, 2024.
+\item \textbf{M. S. Sadique}, W. Farzana, A. Temtam, K. M. Iftekharuddin. ``Class activation mapping and uncertainty estimation in multi-organ segmentation.'' \emph{SPIE Medical Imaging}, 2023.
+\item \textbf{M. S. Sadique}, M. M. Rahman, W. Farzana, A. Temtam, K. M. Iftekharuddin. ``Brain tumor segmentation using neural ordinary differential equations with UNet-context encoding network.'' \emph{MICCAI Brainlesion Workshop}, 2022.
+\item \textbf{M. S. Sadique}, A. Temtam, E. Lappinen, K. M. Iftekharuddin. ``Radiomic texture feature descriptor to distinguish recurrent brain tumor from radiation necrosis using multimodal MRI.'' \emph{SPIE Medical Imaging}, 2022.
+\end{enumerate}
+Full publication list: \href{https://scholar.google.com/citations?user=EWnmhbgAAAAJ}{Google Scholar} $\cdot$ \href{https://orcid.org/0000-0002-6734-6802}{ORCID 0000-0002-6734-6802}
+
+\section*{Teaching \& Mentoring}
+\role{Teaching Assistant, Senior Design (ECE 481W/487)}{Fall 2021--present}{Old Dominion University; course materials, Canvas modules, assessment, and ABET reporting}
+\role{Teaching Assistant, Circuits, Linear Systems \& Signals}{2019--2025}{Old Dominion University; problem sessions, laboratories, MATLAB/Simulink, and Multisim}
+\role{Course Instructor, Circuit Analysis I \& Laboratory}{2017}{Dhaka International University}
+\role{Undergraduate Research Mentor, NSF REU}{Summers 2022, 2023}{Privacy-preserving medical image analysis and federated learning}
+
+\section*{Technical Skills}
+\textbf{Programming:} Python, MATLAB, R; C and shell scripting.\\
+\textbf{Machine learning:} PyTorch, TensorFlow, Keras, scikit-learn, CNNs, U-Net/nnU-Net, neural ODEs, transformers, diffusion models, survival analysis, domain adaptation.\\
+\textbf{Medical imaging:} FSL, FreeSurfer, 3D Slicer, ANTs, SimpleITK, NiBabel, ITK-SNAP, MIPAV.\\
+\textbf{Research computing:} NumPy, pandas, OpenCV, CUDA, Docker, Slurm/HPC.
+
+\section*{Honors \& Service}
+SPIE Medical Imaging Student Conference Support (2022, 2023); team lead, 8th place in AMOS 2022; NSICT Fellowship for M.S. thesis (2015); IEEE Graduate Student Member; SPIE Student Member; reviewer for \emph{Franklin Open}, ICIEV, and ICIVPR.
+\end{document}
