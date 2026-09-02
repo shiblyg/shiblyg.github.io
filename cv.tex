@@ -1,0 +1,295 @@
+% Md Shibly Sadique - full academic curriculum vitae
+% Build: pdflatex cv.tex   (run twice so hyperref and the page count settle)
+% Typeface and metrics follow the reference template: Libertinus Serif, 11pt,
+% 1in side margins, letterspaced small-caps section headings with a trailing rule.
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[left=1in,right=1in,top=0.85in,bottom=0.7in,footskip=0.35in]{geometry}
+\usepackage{libertinus}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{link}{HTML}{1F4E8C}
+\definecolor{muted}{HTML}{3A3A3A}
+
+\hypersetup{
+  colorlinks=true, urlcolor=link, linkcolor=link,
+  pdfauthor={Md Shibly Sadique},
+  pdftitle={Curriculum Vitae - Md Shibly Sadique},
+  pdfsubject={Academic curriculum vitae}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\raggedbottom
+\raggedright
+
+\SetTracking{encoding=*}{110}
+\newcommand{\spaced}[1]{\lsstyle #1}
+
+% section heading: letterspaced small caps with a rule running to the right margin
+\newcommand{\cvsection}[1]{%
+  \needspace{4\baselineskip}%
+  \vspace{13pt}%
+  \noindent{\large\scshape\spaced{#1}}\hspace{7pt}%
+  {\leaders\hrule height \dimexpr0.42ex+0.9pt\relax depth -0.42ex\hfill}\kern0pt%
+  \par\vspace{6pt}}
+
+\setlist[itemize]{leftmargin=13pt,itemsep=1pt,topsep=2.5pt,parsep=0pt,label=\textbullet}
+\setlist[enumerate]{leftmargin=32pt,itemsep=4pt,topsep=4pt,parsep=0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[R]{\footnotesize\color{muted}Md Shibly Sadique \quad Curriculum Vitae}
+\fancyfoot[C]{\footnotesize\color{muted}\thepage\ of \pageref{LastPage}}
+\fancypagestyle{firstpage}{\fancyhf{}\fancyfoot[C]{\footnotesize\color{muted}\thepage\ of \pageref{LastPage}}}
+
+% \entry{date}{content}
+\newcommand{\entry}[2]{%
+  \needspace{3\baselineskip}%
+  \noindent\begin{minipage}[t]{0.155\textwidth}\raggedright\small #1\end{minipage}%
+  \hspace{0.015\textwidth}%
+  \begin{minipage}[t]{0.825\textwidth}#2\end{minipage}\par\vspace{7pt}}
+
+\begin{document}
+\thispagestyle{firstpage}
+
+%%% ---------------------------------------------- header
+{\LARGE\scshape\spaced{Md Shibly Sadique}}
+
+\vspace{5pt}
+\begin{minipage}[t]{0.52\textwidth}
+PhD Candidate, Biomedical Image Analysis\\
+Vision Lab, Dept. of Electrical \& Computer Engineering\\
+Old Dominion University, Norfolk, VA, USA
+\end{minipage}%
+\hfill%
+\begin{minipage}[t]{0.46\textwidth}\small\raggedleft
+Website: \href{https://shiblyg.github.io}{shiblyg.github.io}\\
+Email: \href{mailto:msadi002@odu.edu}{msadi002@odu.edu}\\
+Phone: +1 (757) 895-6050\\
+Google Scholar: \href{https://scholar.google.com/citations?user=EWnmhbgAAAAJ&hl=en}{Md Shibly's Profile}\\
+GitHub: \href{https://github.com/shiblyg}{github.com/shiblyg}\\
+ORCID: \href{https://orcid.org/0000-0002-6734-6802}{0000-0002-6734-6802}
+\end{minipage}
+
+%%% ---------------------------------------------- education
+\cvsection{Education}
+
+\entry{2018-2027}{Ph.D., Electrical \& Computer Engineering, Old Dominion University, USA\\
+\textit{Expected graduation: July 2027}\\
+\textit{Dissertation: Computational Modeling for Classification and Survivability Prediction in Recurrent Brain Tumor, Integrating Biophysical Tumor Growth Models (PDE)}\\
+\textit{Advisor: \href{https://sites.wp.odu.edu/VisionLab/people/\#Khan}{Dr. Khan M. Iftekharuddin}}}
+
+\entry{2014-2016}{M.Sc., Electrical \& Electronic Engineering, \href{https://du.ac.bd/body/EEE}{University of Dhaka}, Bangladesh\\
+\textit{Thesis: Design, Simulation, and Measurement of a Slot-Loaded Microstrip Patch Antenna}\\
+\textit{Advisor: Dr. Anis Ahmed}}
+
+\entry{2010-2014}{B.Sc., Electrical \& Electronic Engineering, University of Dhaka, Bangladesh}
+
+%%% ---------------------------------------------- research areas
+\cvsection{Research Areas}
+
+\entry{Biomedical\\imaging}{Multimodal and 3D volumetric MRI, functional MRI, and CT; registration, segmentation, and classification; physics-informed (PDE) modeling, radiomic feature extraction, longitudinal disease progression modeling, uncertainty quantification, and explainable AI.}
+
+\entry{Computer\\vision}{Deep learning and classical image processing for biological structure detection; automated segmentation and predictive modeling with U-Net, nnU-Net, neural ODEs, uncertainty-aware frameworks, and generative models.}
+
+\entry{Data mining}{Survival and risk prediction from imaging biomarkers; prognostic modeling; inferential statistical modeling for interpretability; feature selection; class-imbalanced data analysis.}
+
+%%% ---------------------------------------------- publications
+\cvsection{Peer-Reviewed Publications}
+
+\textit{Journal Articles}
+\begin{enumerate}[label={[J\arabic*]},leftmargin=34pt]
+\item Temtam, A., Witherow, M.A., Ma, L., \textbf{Sadique, M.S.}, Moeller, F.G., \& Iftekharuddin, K.M. (2025). \textit{Functional Brain Network Identification in Opioid Use Disorder Using Machine Learning Analysis of Resting-State fMRI BOLD Signals. Computers in Biology and Medicine}, 196(C), 110946.
+\item Temtam, A., Witherow, M.A., Ma, L., \textbf{Sadique, M.S.}, Moeller, F.G., Kenneth, C., Wright, D., \& Iftekharuddin, K.M. (2025). \textit{Differentiating Opioid Use Disorder from Healthy Controls via ML Analysis of rs-fMRI Networks. Journal of Clinical and Translational Science}, 9(s1), 110-111.
+\item \textbf{Sadique, M.S.}, Farzana, W., Temtam, A., Lappinen, E., Vossough, A., \& Iftekharuddin, K.M. (2024). \textit{Brain Tumor Recurrence vs. Radiation Necrosis Classification and Patient Survivability Prediction. IEEE Journal of Biomedical and Health Informatics}.
+\item Ohi, M.A.R., \textbf{Sadique, M.S.}, Hussain, S., \& Ahmed, A. (2017). \textit{Design and Fabrication of Slot-Loaded Microstrip Patch Antenna at 2.45 GHz. International Journal of Advanced Research in Electrical, Electronics and Instrumentation Engineering}.
+\end{enumerate}
+
+\vspace{7pt}
+\textit{Conference Proceedings}
+\begin{enumerate}[label={[C\arabic*]},leftmargin=34pt]
+\item Farzana, W., Witherow, M.A., Longoria, I., \textbf{Sadique, M.S.}, Temtam, A., \& Iftekharuddin, K.M. (2024). \textit{Domain Adaptive Federated Learning for Multi-Institution Molecular Mutation Prediction and Bias Identification}. In Proc. SPIE Medical Imaging: Computer-Aided Diagnosis, vol. 12927, 368-375.
+\item \textbf{Sadique, M.S.}, Farzana, W., Temtam, A., \& Iftekharuddin, K.M. (2023). \textit{Class Activation Mapping and Uncertainty Estimation in Multi-Organ Segmentation}. In Proc. SPIE Medical Imaging: Computer-Aided Diagnosis, vol. 12465, 169-174.
+\item Temtam, A., Ma, L., Moeller, F.G., \textbf{Sadique, M.S.}, \& Iftekharuddin, K.M. (2023). \textit{Opioid Use Disorder Prediction Using Machine Learning of fMRI Data}. In Proc. SPIE Medical Imaging: Computer-Aided Diagnosis, vol. 12465, 142-146.
+\item \textbf{Sadique, M.S.}, Temtam, A., Lappinen, E., \& Iftekharuddin, K.M. (2022). \textit{Radiomic Texture Feature Descriptor to Distinguish Recurrent Brain Tumor from Radiation Necrosis Using Multimodal MRI}. In Proc. SPIE Medical Imaging: Computer-Aided Diagnosis, vol. 12033, 668-674.
+\end{enumerate}
+
+\vspace{7pt}
+\textit{Book Chapters and Workshop Papers}
+\begin{enumerate}[label={[B\arabic*]},leftmargin=34pt]
+\item \textbf{Sadique, M.S.}, Rahman, M.M., Farzana, W., Glandon, A., Temtam, A., \& Iftekharuddin, K.M. (2023). \textit{Brain Tumor Segmentation: Glioma Segmentation in Sub-Saharan Africa Patients Using nnU-Net}. In Int'l Challenge on Cross-Modality Domain Adaptation for Medical Image Segmentation, 322-331. Springer.
+\item Temtam, A., \textbf{Sadique, M.S.}, Rahman, M.M., Farzana, W., \& Iftekharuddin, K.M. (2023). \textit{Pediatric Brain Tumor Segmentation Using Multiresolution Fractal Deep Neural Network}. In Int'l Challenge on Cross-Modality Domain Adaptation for Medical Image Segmentation, 332-340. Springer.
+\item \textbf{Sadique, M.S.}, Rahman, M.M., Farzana, W., Glandon, A., Temtam, A., \& Iftekharuddin, K.M. (2023). \textit{Local Synthesis of Healthy Brain Tissue Using an Enhanced 3D Pix2Pix Model for Medical Image Inpainting}. In Int'l Challenge on Cross-Modality Domain Adaptation for Medical Image Segmentation, 312-321. Springer.
+\item \textbf{Sadique, M.S.}, Rahman, M.M., Farzana, W., Temtam, A., \& Iftekharuddin, K.M. (2022). \textit{Brain Tumor Segmentation Using Neural Ordinary Differential Equations with UNet-Context Encoding Network}. In Int'l MICCAI Brainlesion Workshop, 205-215. Springer.
+\item Rahman, M.M., \textbf{Sadique, M.S.}, Temtam, A.G., Farzana, W., Vidyaratne, L., \& Iftekharuddin, K.M. (2021). \textit{Brain Tumor Segmentation Using UNet-Context Encoding Network}. In Int'l MICCAI Brainlesion Workshop, 463-472. Springer.
+\item Farzana, W., Temtam, A.G., Shboul, Z.A., Rahman, M.M., \textbf{Sadique, M.S.}, \& Iftekharuddin, K.M. (2021). \textit{Radiogenomic Prediction of MGMT Using Deep Learning with Bayesian Optimized Hyperparameters}. In Int'l MICCAI Brainlesion Workshop, 357-366. Springer.
+\end{enumerate}
+
+\vspace{7pt}
+\textit{Preprint}
+\begin{enumerate}[label={[P\arabic*]},leftmargin=34pt]
+\item Kofler, F., Meissen, F., Steinbauer, F., Graf, R., Oswald, E., de la Rosa, E., Li, H.B., Baid, U., Hoelzl, F., Turgut, O., \textbf{Sadique, M.S.}, et al. (2023). \textit{The Brain Tumor Segmentation (BraTS) Challenge 2023: Local Synthesis of Healthy Brain Tissue via Inpainting}. arXiv: \href{https://arxiv.org/abs/2305.08992}{2305.08992}.
+\end{enumerate}
+
+%%% ---------------------------------------------- presentations
+\cvsection{Technical Presentations}
+
+\entry{2026}{\textit{Adult-to-Pediatric Domain Shift in Brain Tumor Segmentation Using Multiresolution Fractal Deep Neural Networks.} SPIE Optics + Photonics, San Diego, California.}
+
+\entry{2023}{\textit{Class Activation Mapping and Uncertainty Estimation in Multi-Organ Segmentation.} SPIE Medical Imaging: Computer-Aided Diagnosis, San Diego, California.}
+
+\entry{2022}{\textit{Brain Tumor Segmentation Using Neural Ordinary Differential Equations with UNet-Context Encoding Network.} Int'l MICCAI Brainlesion Workshop.}
+
+\entry{2022}{\textit{Radiomic Texture Feature Descriptor to Distinguish Recurrent Brain Tumor from Radiation Necrosis Using Multimodal MRI.} SPIE Medical Imaging: Computer-Aided Diagnosis.}
+
+%%% ---------------------------------------------- research experience
+\cvsection{Research Experience}
+
+\entry{2018-Present}{\textbf{Graduate Research Assistant}, Vision Lab\\
+\textit{Old Dominion University, Norfolk, Virginia; advised by Dr. Khan M. Iftekharuddin}}
+
+\entry{2025-Present}{\textit{Quantifying Learnability in Brain Tumor Growth Modeling Under Sampling Noise}
+\begin{itemize}
+\item Examined how sampling noise constrains learnability in PDE-based tumor growth models.
+\item Proposed the Resolvable Expressive Capacity framework with eigentask decomposition to quantify reliably learnable growth directions under uncertainty.
+\item Developing a Bayesian inference framework for noise-aware digital twin models of tumor evolution.
+\end{itemize}}
+
+\entry{2023-2026}{\textit{Adult-to-Pediatric Domain Shift in Brain Tumor Segmentation}
+\begin{itemize}
+\item Developed a multiresolution fractal deep neural network with gradient-reversal domain alignment, transferring from a large adult glioma cohort to a substantially smaller pediatric target cohort.
+\item Applied Monte-Carlo dropout for voxel-level epistemic uncertainty, flagging low-confidence regions for radiologist review.
+\end{itemize}}
+
+\entry{2021-2025}{\textit{Functional Brain Network Identification in Opioid Use Disorder} \quad Project: NIH
+\begin{itemize}
+\item Extracted time-frequency features from resting-state fMRI BOLD signals to localize aberrant neural activity within functional networks.
+\item Applied Random Forest modeling with Boruta selection and statistical analysis to identify the functional networks with the highest discriminative power for opioid use disorder against healthy controls.
+\end{itemize}}
+
+\entry{2021-2024}{\textit{Noninvasive Classification and Prognostic Modeling of High-Grade Brain Tumors: Recurrence and Radiation-Induced Necrosis} \quad Project: NIH/NIBIB
+\begin{itemize}
+\item Developed a computational model addressing the clinical difficulty of separating recurrent brain tumor from radiation necrosis, which present near-identical imaging features, using multiresolution radiomic features with statistically rigorous repeated random sub-sampling.
+\item Achieved an area under the curve of $0.892 \pm 0.055$ in classifying recurrence against necrosis.
+\item Designed a copula-based survival pipeline addressing dependent censoring in glioblastoma, reaching cross-validated AUC $\approx 0.77$ and outperforming Cox regression with clearer stratification of patient risk groups.
+\end{itemize}}
+
+\entry{2021-2023}{\textit{Uncertainty-Aware Multi-Organ Segmentation Using MRI and CT}
+\begin{itemize}
+\item Proposed an uncertainty quantification framework using ensemble nnU-Nets with 5-fold cross-validation, enabling detection of low-confidence predictions.
+\item Quantified predictive reliability by combining total uncertainty (entropy) with epistemic uncertainty (mutual information) across ensemble models.
+\item Demonstrated that uncertainty estimates reliably stratify erroneous segmentations, improve interpretability, and enable targeted clinical error analysis.
+\end{itemize}}
+
+\entry{2018-2023}{\textit{Brain Tumor Segmentation and Validation in MRI} \quad Project: NIH/NIBIB
+\begin{itemize}
+\item Developed UNCE-NODE, a neural ODE-enhanced U-Net for multimodal MRI brain tumor segmentation, introducing continuous-depth modeling with shared weights across integration steps.
+\item Reduced trainable parameters by roughly 30\% and accelerated inference while preserving Dice accuracy.
+\item Applied uncertainty quantification to assess prediction confidence, improving the reliability and interpretability of automated segmentation.
+\item Participated three times in the global challenge organized by the \href{https://www.synapse.org/Synapse:syn53708126/wiki/626320}{MICCAI} society.
+\end{itemize}}
+
+\entry{2014-2016}{\textbf{Research Assistant}, Microwave \& Optical Fiber Communications Lab\\
+\textit{University of Dhaka, Bangladesh; advised by Dr. Anis Ahmed}
+\begin{itemize}
+\item Built simulation capability, fabrication, and experimental setup for microstrip patch antenna research in the Department of Electrical \& Electronic Engineering.
+\end{itemize}}
+
+%%% ---------------------------------------------- teaching
+\cvsection{Teaching Experience}
+
+\entry{2021-Present}{\textbf{Teaching Assistant}, Old Dominion University\\
+\textit{ECE 481W Preparatory ECE Senior Design; ECE 487 ECE Senior Design II}
+\begin{itemize}
+\item Worked with the course instructor to develop course materials and synchronize related class modules through Canvas.
+\item Prepared ABET outcome reports.
+\item Graded quizzes, assignments, and projects, and returned grades and feedback through Canvas.
+\end{itemize}}
+
+\entry{2019-Present}{\textbf{Teaching Assistant}, Old Dominion University\\
+\textit{ECE 201 Circuit Analysis I and ECE 202 Circuit Analysis II (Fall 2019, Spring 2020); ECE 302 Linear System Analysis (Fall 2020); ECE 287 Fundamental Electric Circuit Laboratory (Summer 2025)}
+\begin{itemize}
+\item Conducted problem-solving classes on assignments and exam preparation, and led laboratories and tutorials.
+\item Designed MATLAB/Simulink and Multisim exercises linking circuit theory to applications.
+\item Proctored examinations and graded quizzes, assignments, projects, and exam scripts.
+\end{itemize}}
+
+\entry{2017}{\textbf{Course Instructor}, Dhaka International University, Bangladesh\\
+\textit{ECE 201 Circuit Analysis I and Fundamental Electric Circuit Laboratory (Spring 2017, Fall 2017)}
+\begin{itemize}
+\item Taught theory classes with laboratory experimentation; set class tests and final examinations and evaluated all scripts.
+\item Prepared and delivered pre-laboratory lectures, set up and demonstrated experiments, and graded weekly performance.
+\end{itemize}}
+
+%%% ---------------------------------------------- mentorship
+\cvsection{Mentorship}
+
+\entry{Summer 2023}{Undergraduate researcher, NSF-REU Program, Old Dominion University\\
+\textit{Privacy-Preserving Federated Learning with Domain Alignment for Multi-Site Molecular Mutation Prediction from Radiomic Features}}
+
+\entry{Summer 2022}{Undergraduate researcher, NSF-REU Program, Old Dominion University\\
+\textit{Using a Privacy-Preserving Medical Image Analysis Framework to Predict Prognosis of Patients with Gliomas}}
+
+%%% ---------------------------------------------- honors
+\cvsection{Awards and Honors}
+
+\entry{2023}{SPIE Medical Imaging Student Conference Support}
+\entry{2022}{SPIE Medical Imaging Student Conference Support}
+\entry{2015}{National Science, Information and Communication Technology (NSICT) Fellowship for M.S. Thesis, Bangladesh}
+
+%%% ---------------------------------------------- competitions
+\cvsection{Research Competitions}
+
+\entry{2022}{Team Lead, \href{https://amos22.grand-challenge.org/final-ranking/}{Multi-modal Abdominal Multi-Organ Segmentation Challenge (AMOS)}\\
+\textit{Eighth place in Task 1 and Task 2}}
+
+\entry{2021-2023}{Participant, RSNA-ASNR-MICCAI Brain Tumor Segmentation (BraTS) Challenge}
+
+%%% ---------------------------------------------- service
+\cvsection{Academic and Professional Service}
+
+\entry{Journal}{Reviewer, \textit{Franklin Open} (Elsevier)}
+\entry{Conference}{Reviewer, Joint Int'l Conference on Informatics, Electronics \& Vision (ICIEV); Int'l Conference on Imaging, Vision \& Pattern Recognition (ICIVPR)}
+
+%%% ---------------------------------------------- workshops
+\cvsection{Professional Workshops and Training}
+
+\entry{May 2025}{Co-clinical Imaging Research Resource Program (CIRP) Annual Virtual Meeting}
+\entry{May 2023}{Medical Imaging De-Identification, National Cancer Institute (NCI)}
+\entry{May 2022}{DeapSECURE Summer Workshop Series: big data, machine learning, and deep learning with neural networks. NSF-funded training for REU students; served as volunteer tutor.}
+
+%%% ---------------------------------------------- skills
+\cvsection{Technical Skills}
+
+\entry{Programming}{Python, MATLAB, R (proficient); C, shell script (basic)}
+\entry{Deep learning}{CNN, RNN, LSTM, U-Net, nnU-Net, Neural ODEs, generative AI, diffusion models, transformers, attention}
+\entry{Machine\\learning}{Classification, statistical analysis, predictive modeling, feature selection and engineering, correlation analysis, optimization, transfer learning, domain adaptation, supervised and unsupervised learning, dimensionality reduction, clustering, class balancing, na\"ive Bayes, gradient boosting, random forests, SVM, PCA, LDA}
+\entry{Imaging\\software}{MIPAV, FSL, ImageJ, FreeSurfer, 3D Slicer, ANTs, SimpleITK, NiBabel, ITK-SNAP}
+\entry{Libraries \&\\frameworks}{TensorFlow, PyTorch, Keras, scikit-learn, pandas, NumPy, Matplotlib, OpenCV, Docker, MedPerf, CUDA, GPU, Slurm (HPC)}
+
+%%% ---------------------------------------------- coursework
+\cvsection{Graduate Coursework}
+
+\entry{Engineering}{ECE 601 Linear Systems; ECE 607 Machine Learning 1; ECE 611 Numerical Methods in Engineering Analysis; ECE 612 Digital Signal Processing 1; ECE 883 Digital Image Processing; ECE 887 Digital Communications}
+\entry{Computing}{CS 822 Machine Learning; CS 823 Introduction to Bioinformatics; CS 895 3D Image Deep Learning; CS 895 Practical Machine Learning Application; STAT 697 Design and Experimental Analysis}
+
+%%% ---------------------------------------------- memberships
+\cvsection{Professional Memberships}
+
+\entry{Current}{IEEE Graduate Student Member; SPIE Student Member}
+
+%%% ---------------------------------------------- references
+\cvsection{References}
+
+Available upon request.
+
+\end{document}
