@@ -3,280 +3,286 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Md Shibly Sadique — Biomedical Image Analysis, Old Dominion University</title>
-<meta name="description" content="Md Shibly Sadique is a PhD candidate at the ODU Vision Lab building deep learning and physics-informed models for brain tumor analysis, with a focus on uncertainty quantification and clinical reliability.">
-<meta name="author" content="Md Shibly Sadique">
+<title>Md Shibly Sadique — Reliable machine learning for clinical imaging</title>
+<meta name="description" content="Md Shibly Sadique builds machine learning for medical imaging that reports its own uncertainty. PhD candidate, Vision Lab, Old Dominion University.">
 <link rel="canonical" href="https://shiblyg.github.io/">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Md Shibly Sadique — Biomedical Image Analysis">
-<meta property="og:description" content="PhD candidate at the ODU Vision Lab. Deep learning and physics-informed models for brain tumor analysis, uncertainty quantification, and clinical reliability.">
+<meta property="og:title" content="Md Shibly Sadique — Reliable machine learning for clinical imaging">
+<meta property="og:description" content="A research program on medical imaging models that know their own limits.">
 <meta property="og:url" content="https://shiblyg.github.io/">
 <meta property="og:image" content="https://shiblyg.github.io/images/portrait.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
+/* ---------------------------------------------------------------------------
+   Palette is drawn from the BraTS segmentation label colormap, which is the
+   visual vocabulary of this field: enhancing tumor, edema, necrotic core.
+   Core blue carries all interaction; the other two only encode categories.
+--------------------------------------------------------------------------- */
 :root{
-  --ink:#0E1B2A; --ink-2:#41566B; --ink-3:#6D8296;
-  --paper:#FFFFFF; --wash:#F3F7F8; --tint:#E7F2F3; --rule:#DCE5EA;
-  --accent:#0B6E77; --accent-2:#0A5A62; --accent-soft:#D8ECEE;
-  --shadow:0 18px 44px rgba(14,27,42,.10);
+  --ink:#0B121B; --ink-2:#3E4E5E; --ink-3:#6B7C8C; --ink-4:#93A3B1;
+  --paper:#FFFFFF; --band:#F5F7F9; --rule:#DFE5EA; --rule-2:#C3CDD5;
+  --core:#1E4E8C;      /* necrotic core, primary */
+  --core-2:#153A6B;
+  --edema:#B8860B;     /* edema */
+  --enh:#A8403D;       /* enhancing tumor */
+  --core-wash:#E4EBF4;
   --sans:"Archivo",-apple-system,"Segoe UI",Arial,sans-serif;
-  --serif:"Newsreader",Georgia,serif;
+  --serif:"Source Serif 4",Georgia,serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-  --maxw:1220px; --gut:clamp(20px,4.5vw,56px);
+  --maxw:1240px; --gut:clamp(20px,5vw,64px);
 }
 html[data-theme="dark"]{
-  --ink:#E8EFF4; --ink-2:#A9BDCC; --ink-3:#8299AB;
-  --paper:#0A131C; --wash:#0E1A24; --tint:#102630; --rule:#20323F;
-  --accent:#4FBCC5; --accent-2:#7AD5DC; --accent-soft:#123640;
-  --shadow:0 18px 44px rgba(0,0,0,.45);
+  --ink:#E6EDF3; --ink-2:#A7B8C6; --ink-3:#7E93A4; --ink-4:#63788A;
+  --paper:#080D14; --band:#0D141D; --rule:#1E2A36; --rule-2:#2C3B49;
+  --core:#6FA3E0; --core-2:#9CC2EC; --edema:#D9AE4A; --enh:#D4807D;
+  --core-wash:#12233A;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
-  font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
-body.dys{--sans:Verdana,Tahoma,sans-serif;--serif:Verdana,Tahoma,sans-serif;letter-spacing:.02em;line-height:1.85}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+  font-size:17.5px;line-height:1.66;-webkit-font-smoothing:antialiased}
+body.legible{--serif:Verdana,Tahoma,sans-serif;--sans:Verdana,Tahoma,sans-serif;line-height:1.85;letter-spacing:.015em}
 img{max-width:100%;height:auto;display:block}
-a{color:var(--accent-2);text-decoration:none}
+a{color:var(--core);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
-:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:3px}
-h1,h2,h3,h4{margin:0;font-family:var(--serif);font-weight:600;line-height:1.12;letter-spacing:-.02em}
+:focus-visible{outline:2.5px solid var(--core);outline-offset:3px}
+h1,h2,h3,h4{margin:0;font-family:var(--sans);font-weight:600;line-height:1.1;letter-spacing:-.025em}
 p{margin:0 0 1em}p:last-child{margin-bottom:0}
 .wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
-.skip{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);background:var(--accent);color:#fff;padding:10px 18px;z-index:300}
+.skip{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);
+  background:var(--core);color:#fff;padding:10px 18px;z-index:300}
 .skip:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;clip-path:none}
+.mono{font-family:var(--mono)}
 
-/* eyebrow */
-.eyebrow{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
-.eyebrow svg{width:14px;height:14px;flex:none}
-
-/* ---------- header ---------- */
-.hdr{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--paper) 90%,transparent);
-  backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
-.hdr-in{display:flex;align-items:center;justify-content:space-between;gap:20px;height:70px}
-.mark{font-family:var(--serif);font-style:italic;font-size:20px;font-weight:500;color:var(--ink);white-space:nowrap}
-.mainnav{display:flex;gap:4px}
-.mainnav a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 11px;border-radius:7px;
-  font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
-.mainnav a svg{width:17px;height:17px}
-.mainnav a:hover,.mainnav a.on{background:var(--tint);color:var(--accent);text-decoration:none}
-.tools{display:flex;gap:6px}
-.tool{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--rule);
-  background:transparent;border-radius:9px;color:var(--ink-2);cursor:pointer}
-.tool:hover{border-color:var(--accent);color:var(--accent)}
-.tool svg{width:17px;height:17px}
-.tool[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-@media(max-width:1080px){.mainnav a span{display:none}.mainnav a{padding:8px 9px}}
-@media(max-width:720px){
-  .hdr-in{height:60px;gap:10px}.mark{font-size:17px}
-  .mainnav{overflow-x:auto;scrollbar-width:none}.mainnav::-webkit-scrollbar{display:none}
-}
+/* ---------- header: a thin instrument bar, not a nav card ---------- */
+.bar{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--paper) 93%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:18px;height:56px}
+.sig{flex:none;font-family:var(--sans);font-weight:700;font-size:14.5px;letter-spacing:-.015em;color:var(--ink);white-space:nowrap}
+.sig span{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--ink-3);margin-left:9px;letter-spacing:0}
+nav.secs{display:flex;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none}
+nav.secs::-webkit-scrollbar{display:none}
+nav.secs a{flex:none;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-3);padding:6px 10px;border-radius:4px;white-space:nowrap}
+nav.secs a:hover,nav.secs a.on{color:var(--core);background:var(--core-wash);text-decoration:none}
+.utils{flex:none;display:flex;gap:5px}
+.u{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--rule);
+  background:transparent;border-radius:6px;color:var(--ink-3);cursor:pointer}
+.u:hover{border-color:var(--core);color:var(--core)}
+.u svg{width:15px;height:15px}
+.u[aria-pressed="true"]{background:var(--core);border-color:var(--core);color:#fff}
+@media(max-width:1000px){nav.secs a{padding:6px 7px;font-size:10px}}
+@media(max-width:820px){.sig span{display:none}}
 
 /* ---------- search ---------- */
-.searchbar{display:none;border-bottom:1px solid var(--rule);background:var(--wash)}
-.searchbar.open{display:block}
-.searchbar .wrap{display:flex;align-items:center;gap:12px;padding-block:14px}
-.searchbar input{flex:1;font:inherit;font-size:16px;padding:11px 14px;border:1px solid var(--rule);
-  border-radius:9px;background:var(--paper);color:var(--ink)}
-.searchbar .count{font-size:13px;color:var(--ink-3);white-space:nowrap}
-mark{background:var(--accent-soft);color:inherit;padding:0 2px;border-radius:2px}
+.sbar{display:none;background:var(--band);border-bottom:1px solid var(--rule)}
+.sbar.on{display:block}
+.sbar .wrap{display:flex;align-items:center;gap:12px;padding-block:13px}
+.sbar input{flex:1;font:inherit;font-size:16px;padding:10px 13px;border:1px solid var(--rule-2);
+  border-radius:6px;background:var(--paper);color:var(--ink)}
+.sbar .n{font-family:var(--mono);font-size:12px;color:var(--ink-3);white-space:nowrap}
 
-/* ---------- hero ---------- */
-.hero{position:relative;background:var(--wash);overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr 42%;min-height:min(70vh,620px)}
-.hero-copy{padding:clamp(44px,5.5vw,80px) 0 clamp(44px,5.5vw,72px);
-  padding-left:max(var(--gut),calc((100vw - var(--maxw))/2 + var(--gut)));padding-right:clamp(28px,4vw,64px);
-  display:flex;flex-direction:column;justify-content:center}
-.hero h1{font-size:clamp(2.4rem,4.6vw,3.9rem);letter-spacing:-.033em;margin-bottom:26px;text-wrap:balance}
-.hero h1 em{display:block;font-style:italic;color:var(--accent);font-weight:500}
-.bio{border-left:3px solid var(--accent);padding-left:18px;max-width:60ch;color:var(--ink-2);margin-bottom:30px}
-.bio b{color:var(--ink);font-weight:600}
-.stats{display:flex;gap:0;margin-bottom:30px}
-.stat{padding-right:30px;margin-right:30px;border-right:1px solid var(--rule)}
-.stat:last-child{border:0;margin:0;padding:0}
-.stat b{display:block;font-family:var(--serif);font-size:2.1rem;font-weight:600;line-height:1;letter-spacing:-.03em}
-.stat span{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3)}
-.btns{display:flex;flex-wrap:wrap;gap:11px;margin-bottom:26px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:9px;
-  font-size:14px;font-weight:600;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink)}
-.btn svg{width:15px;height:15px}
-.btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-.btn-fill{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn-fill:hover{background:var(--ink);border-color:var(--ink);color:#fff}
-.socials{display:flex;gap:9px}
-.soc{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--rule);
-  border-radius:50%;color:var(--ink-2);background:var(--paper)}
-.soc:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
-.soc svg{width:16px;height:16px}
-.hero-photo{position:relative}
-.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 26%}
-.hero-photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,var(--wash) 0%,rgba(0,0,0,0) 26%)}
-.badge-card{position:absolute;z-index:2;left:24px;right:24px;bottom:24px;display:flex;align-items:center;gap:14px;
-  padding:14px 18px;border-radius:13px;background:color-mix(in srgb,var(--paper) 92%,transparent);
-  backdrop-filter:blur(10px);box-shadow:var(--shadow)}
-.badge-card .ic{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;
-  background:var(--accent-soft);color:var(--accent)}
-.badge-card .ic svg{width:17px;height:17px}
-.badge-card b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
-.badge-card span{font-size:12.5px;color:var(--ink-3)}
-@media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr}
-  .hero-copy{padding-inline:var(--gut);order:2}
-  .hero-photo{order:1;height:340px}
-  .hero-photo::before{background:linear-gradient(0deg,var(--wash) 0%,rgba(0,0,0,0) 45%)}
-  .hero-photo img{object-position:center 18%}
-}
-@media(max-width:480px){.stat b{font-size:1.75rem}.stat{padding-right:20px;margin-right:20px}}
+/* ---------- section scaffolding: numbered, editorial ---------- */
+section{padding-block:clamp(56px,7vw,104px);border-top:1px solid var(--rule)}
+.banded{background:var(--band)}
+.shead{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;
+  padding-bottom:14px;margin-bottom:clamp(28px,4vw,44px);border-bottom:2px solid var(--ink)}
+.snum{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--core);letter-spacing:.06em}
+.shead h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}
+.shead .aside{font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  text-transform:uppercase;letter-spacing:.08em;justify-self:end;white-space:nowrap}
+@media(max-width:640px){.shead .aside{display:none}}
 
-/* ---------- section shell ---------- */
-section{padding-block:clamp(56px,7vw,100px)}
-.tinted{background:var(--wash)}
-.dotted{background-color:var(--tint);
-  background-image:radial-gradient(color-mix(in srgb,var(--accent) 22%,transparent) 1px,transparent 1px);
-  background-size:22px 22px}
-.cols{display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:start}
-.cols-head h2{font-size:clamp(2rem,4vw,3.1rem);margin-bottom:6px}
-.cols-head p{font-size:14.5px;color:var(--ink-3);margin:0}
-@media(max-width:860px){.cols{grid-template-columns:1fr;gap:22px}}
+/* ---------- hero: the claim leads, the face does not ---------- */
+.hero{padding-block:clamp(52px,7vw,104px) clamp(40px,5vw,72px)}
+.kicker{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--core);margin:0 0 22px;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:26px;height:2px;background:var(--core)}
+.hero h1{font-size:clamp(2.05rem,4.4vw,3.5rem);letter-spacing:-.033em;max-width:22ch;margin-bottom:20px}
+.pullquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,1.8vw,1.4rem);
+  color:var(--ink-2);border-left:3px solid var(--core);padding-left:18px;max-width:44ch;margin:0 0 30px}
+.pullquote em{color:var(--core);font-style:italic}
+.hero h1 b{font-weight:600;color:var(--core);}
+.claim{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:clamp(28px,5vw,64px);align-items:start}
+.lede{font-size:clamp(1.05rem,1.5vw,1.24rem);color:var(--ink-2);max-width:60ch;margin-bottom:24px}
+.lede b{color:var(--ink);font-weight:600}
+.who{display:flex;gap:16px;align-items:center;padding-top:20px;border-top:1px solid var(--rule)}
+.who img{width:66px;height:66px;border-radius:50%;object-fit:cover;object-position:center 20%;flex:none}
+.who div{font-size:15px;color:var(--ink-2);line-height:1.5}
+.who b{display:block;font-family:var(--sans);font-size:15.5px;font-weight:600;color:var(--ink)}
+.acts{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.b{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:13.5px;font-weight:600;
+  padding:10px 17px;border:1.5px solid var(--rule-2);border-radius:6px;color:var(--ink);background:var(--paper)}
+.b:hover{border-color:var(--core);color:var(--core);text-decoration:none}
+.b-solid{background:var(--core);border-color:var(--core);color:#fff}
+.b-solid:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.b svg{width:14px;height:14px}
+.sidecard{border:1px solid var(--rule);border-radius:10px;padding:20px;background:var(--band)}
+.sidecard h3{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.fact{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.fact:last-child{border:0}
+.fact span{color:var(--ink-3)}
+.fact b{font-family:var(--mono);font-weight:500;color:var(--ink);text-align:right}
+@media(max-width:900px){.claim{grid-template-columns:1fr}.sidecard{max-width:420px}}
 
-/* ---------- research ---------- */
-.thread{display:grid;grid-template-columns:300px minmax(0,1fr);gap:0;margin-bottom:22px;
-  border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--paper)}
-.thread-fig{background:var(--wash);display:grid;place-items:center;padding:20px;border-right:1px solid var(--rule)}
-.thread-fig img{border-radius:8px;width:100%;max-height:250px;object-fit:contain}
-.thread-body{padding:clamp(22px,2.6vw,32px)}
-.thread h3{font-size:1.5rem;margin-bottom:12px}
-.q{border-left:3px solid var(--accent);padding-left:14px;margin-bottom:14px;
-  font-family:var(--serif);font-style:italic;font-size:1.06rem;color:var(--ink-2)}
-.thread p{color:var(--ink-2);font-size:15.5px;margin-bottom:16px}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
-.tag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:5px 10px;border-radius:5px;background:var(--accent-soft);color:var(--accent-2)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;
-  padding:6px 12px;border:1.5px solid var(--accent);border-radius:7px;color:var(--accent-2);background:transparent}
-.chip:hover{background:var(--accent);color:#fff;text-decoration:none}
-@media(max-width:820px){
-  .thread{grid-template-columns:1fr}
-  .thread-fig{border-right:0;border-bottom:1px solid var(--rule)}
-  .thread-fig img{max-height:190px}
-}
+/* ---------- the problem: a single wide statement ---------- */
+.problem{font-family:var(--serif);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.5;
+  max-width:32ch;color:var(--ink);margin-bottom:26px}
+.problem em{font-style:italic;color:var(--core)}
+.pgrid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,5vw,72px)}
+.pgrid .body{color:var(--ink-2)}
+@media(max-width:820px){.pgrid{grid-template-columns:1fr}}
+
+/* ---------- research program map (the signature element) ---------- */
+.mapwrap{border:1px solid var(--rule);border-radius:10px;background:var(--paper);
+  padding:clamp(14px,2vw,24px);margin-bottom:26px;overflow-x:auto}
+.mapwrap svg{display:block;min-width:660px;width:100%;height:auto}
+.lane-label{font-family:var(--mono);font-size:10.5px;fill:var(--ink-3);letter-spacing:.05em;text-transform:uppercase}
+.yr{font-family:var(--mono);font-size:10.5px;fill:var(--ink-4)}
+.gridline{stroke:var(--rule);stroke-width:1}
+.lane-sep{stroke:var(--rule);stroke-width:1;stroke-dasharray:3 4}
+.projbar{cursor:pointer;transition:opacity .18s}
+.projbar rect{rx:7}
+.projbar text{font-family:var(--sans);font-size:12.5px;font-weight:600;fill:#fff;pointer-events:none}
+.projbar:hover{opacity:.82}
+.projbar.dim{opacity:.22}
+.projbar.sel rect{stroke:var(--ink);stroke-width:2.5}
+.nowline{stroke:var(--enh);stroke-width:1.5;stroke-dasharray:4 3}
+.nowtext{font-family:var(--mono);font-size:10px;fill:var(--enh);letter-spacing:.06em}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.lg{font-family:var(--mono);font-size:11px;font-weight:500;padding:6px 12px;border-radius:5px;
+  border:1.5px solid var(--rule-2);background:transparent;color:var(--ink-2);cursor:pointer}
+.lg:hover{border-color:currentColor}
+.lg .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:baseline}
+.lg[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.readout{border-left:3px solid var(--core);padding:2px 0 2px 18px;min-height:96px}
+.readout h3{font-size:1.32rem;margin-bottom:7px}
+.readout .meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:10px}
+.readout p{font-size:15.5px;color:var(--ink-2);max-width:70ch;margin-bottom:10px}
+.readout .links{display:flex;flex-wrap:wrap;gap:8px}
+.rl{font-family:var(--mono);font-size:11.5px;font-weight:500;padding:5px 11px;
+  border:1.5px solid var(--core);border-radius:5px;color:var(--core)}
+.rl:hover{background:var(--core);color:#fff;text-decoration:none}
+
+/* ---------- threads as editorial entries ---------- */
+.thread{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(24px,4vw,52px);
+  padding-block:clamp(26px,3.5vw,38px);border-top:1px solid var(--rule);align-items:start}
+.thread:first-of-type{border-top:0}
+.thread.solo{grid-template-columns:minmax(0,1fr)}
+.thread .tag{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:9px;display:block}
+.thread h3{font-size:1.42rem;margin-bottom:11px}
+.thread .q{font-style:italic;color:var(--core);font-size:1.04rem;margin-bottom:12px}
+.thread p{color:var(--ink-2);font-size:16px;max-width:66ch;margin-bottom:14px}
+.thread figure{margin:0;border:1px solid var(--rule);border-radius:8px;padding:11px;background:#fff}
+.thread figure img{max-height:200px;width:100%;object-fit:contain}
+.thread figcaption{font-family:var(--mono);font-size:10px;line-height:1.5;color:var(--ink-3);margin-top:8px}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+@media(max-width:820px){.thread{grid-template-columns:1fr}.thread figure{max-width:420px}}
 
 /* ---------- publications ---------- */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
-.fbtn{font-size:13px;font-weight:600;padding:8px 15px;border:1.5px solid var(--rule);
-  background:transparent;color:var(--ink-2);border-radius:8px;cursor:pointer;font-family:inherit}
-.fbtn:hover{border-color:var(--accent);color:var(--accent)}
-.fbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.pub{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:28px;padding:26px 0;border-top:1px solid var(--rule)}
+.filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+.f{font-family:var(--mono);font-size:11.5px;font-weight:500;padding:7px 13px;border:1.5px solid var(--rule-2);
+  background:transparent;color:var(--ink-2);border-radius:5px;cursor:pointer}
+.f:hover{border-color:var(--core);color:var(--core)}
+.f[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.pub{display:grid;grid-template-columns:76px minmax(0,1fr) 180px;gap:24px;
+  padding-block:22px;border-top:1px solid var(--rule)}
 .pub:first-of-type{border-top:0}
-.pub.nothumb{grid-template-columns:minmax(0,1fr)}
-.pmeta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:11px}
-.vbadge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;
-  padding:5px 11px;border-radius:6px;background:var(--accent);color:#fff}
-.vbadge svg{width:12px;height:12px}
-.vfull{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-3)}
-.pub h3{font-size:1.28rem;line-height:1.3;margin-bottom:10px}
-.pub h3 a{color:var(--ink)}.pub h3 a:hover{color:var(--accent-2)}
-.take{border-left:3px solid var(--accent);padding-left:13px;margin-bottom:12px;
-  font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--ink-2)}
-.auth{font-size:14.5px;color:var(--ink-3);margin-bottom:14px}
-.auth b{color:var(--ink);font-weight:600}
-.pthumb{border:1px solid var(--rule);border-radius:9px;overflow:hidden;background:var(--paper);align-self:start}
-.pthumb img{width:100%;aspect-ratio:4/3;object-fit:cover}
-@media(max-width:760px){.pub,.pub.nothumb{grid-template-columns:1fr;gap:16px}.pthumb{max-width:280px}}
+.pyr{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--core);padding-top:3px}
+.pv{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:7px}
+.pub h3{font-size:1.14rem;line-height:1.32;margin-bottom:8px;font-weight:600}
+.pub h3 a{color:var(--ink)}.pub h3 a:hover{color:var(--core)}
+.tk{font-style:italic;color:var(--ink-2);font-size:15.5px;margin-bottom:9px;max-width:66ch}
+.au{font-size:14.5px;color:var(--ink-3);margin-bottom:11px;max-width:70ch}
+.au b{color:var(--ink);font-weight:600}
+.ch{font-family:var(--mono);font-size:11px;font-weight:500;padding:5px 10px;border:1.5px solid var(--rule-2);
+  border-radius:4px;color:var(--ink-2);background:transparent;cursor:pointer}
+.ch:hover{border-color:var(--core);color:var(--core);text-decoration:none}
+.thumb{border:1px solid var(--rule);border-radius:7px;padding:8px;background:#fff;align-self:start}
+.thumb img{max-height:130px;width:100%;object-fit:contain}
+.bib{display:none;margin-top:11px;padding:13px 15px;background:var(--band);border:1px solid var(--rule);
+  border-radius:6px;font-family:var(--mono);font-size:12px;line-height:1.6;white-space:pre-wrap;
+  word-break:break-word;color:var(--ink-2)}
+.bib.open{display:block}
+@media(max-width:860px){.pub{grid-template-columns:64px minmax(0,1fr)}.thumb{grid-column:2;max-width:240px}}
+@media(max-width:560px){.pub{grid-template-columns:1fr;gap:8px}.thumb{grid-column:1}}
 
-/* ---------- news ---------- */
-.news{max-height:520px;overflow-y:auto;padding-right:12px}
-.news::-webkit-scrollbar{width:6px}
-.news::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
-.nitem{display:grid;grid-template-columns:74px 30px minmax(0,1fr);gap:16px;
-  padding:16px 0;border-bottom:1px solid var(--rule);align-items:start}
-.nitem:last-child{border-bottom:0}
-.ndate{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);line-height:1.45;padding-top:3px}
-.nic{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:var(--accent-soft);color:var(--accent)}
-.nic svg{width:15px;height:15px}
-.nitem p{font-size:15.5px;margin:0}
-.new{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 7px;border-radius:4px;background:#E9542F;color:#fff;vertical-align:middle;margin-left:6px}
-@media(max-width:560px){.nitem{grid-template-columns:64px minmax(0,1fr);gap:10px}.nic{display:none}}
+/* ---------- trajectory ---------- */
+.traj{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tcol{border-top:3px solid var(--rule);padding-top:16px}
+.tcol.now{border-top-color:var(--core)}
+.tcol.next{border-top-color:var(--edema)}
+.tcol h3{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.tcol.now h3{color:var(--core)}
+.tcol.next h3{color:var(--edema)}
+.ti{padding:12px 0;border-bottom:1px solid var(--rule)}
+.ti:last-child{border:0}
+.ti b{display:block;font-family:var(--sans);font-size:15px;font-weight:600;margin-bottom:3px}
+.ti span{font-size:14.5px;color:var(--ink-2)}
+.ti .yrs{font-family:var(--mono);font-size:10.5px;color:var(--ink-4);display:block;margin-top:4px}
+@media(max-width:860px){.traj{grid-template-columns:1fr;gap:28px}}
+
+/* ---------- students ---------- */
+.stu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(26px,4vw,56px)}
+.ask{border:1px solid var(--rule);border-left:3px solid var(--core);border-radius:0 8px 8px 0;
+  padding:18px 20px;margin-bottom:14px;background:var(--paper)}
+.ask b{display:block;font-family:var(--sans);font-size:15.5px;font-weight:600;margin-bottom:5px}
+.ask span{font-size:15px;color:var(--ink-2)}
+@media(max-width:820px){.stu{grid-template-columns:1fr}}
 
 /* ---------- teaching ---------- */
-.tnote{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-style:italic;
-  font-size:15px;color:var(--ink-2);margin-bottom:18px}
-.tnote .ic{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:#fff;flex:none}
-.tnote .ic svg{width:12px;height:12px}
-.crow{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:18px;align-items:center;
-  padding:14px 0;border-bottom:1px solid var(--rule)}
-.ccode{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--accent)}
-.cname{font-size:15.5px}
-.cterm{font-size:14px;color:var(--ink-3);white-space:nowrap}
-@media(max-width:640px){.crow{grid-template-columns:80px minmax(0,1fr);gap:6px 14px}.cterm{grid-column:2;white-space:normal}}
+.crow{display:grid;grid-template-columns:100px minmax(0,1fr) auto;gap:16px;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid var(--rule)}
+.crow .c{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--core)}
+.crow .t{font-size:15.5px}
+.crow .w{font-family:var(--mono);font-size:11px;color:var(--ink-3);white-space:nowrap}
+.role{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);margin:22px 0 10px}
+.role:first-child{margin-top:0}
+@media(max-width:620px){.crow{grid-template-columns:88px minmax(0,1fr)}.crow .w{grid-column:2}}
 
-/* ---------- service ---------- */
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,52px)}
-.sblock h3{display:flex;align-items:center;gap:9px;font-family:var(--sans);font-size:11.5px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding-bottom:10px;
-  margin-bottom:6px;border-bottom:1px solid var(--rule)}
-.sblock h3 svg{width:15px;height:15px}
-.sblock li{list-style:none;padding:11px 0;border-bottom:1px solid var(--rule);font-size:15px}
-.sblock ul{margin:0;padding:0}
-.sblock li b{font-weight:600}
-.callout{border:1.5px solid var(--accent);border-radius:13px;padding:20px;background:var(--accent-soft);margin-top:14px}
-.callout .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
-.callout .top b{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.pill{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  padding:4px 10px;border:1.5px solid var(--accent);border-radius:99px;color:var(--accent-2);white-space:nowrap}
-.callout p{font-size:14.5px;color:var(--ink-2);margin-bottom:10px}
-.years{display:flex;gap:7px}
-.years span{font-size:12px;font-weight:600;padding:4px 11px;border:1.5px solid var(--accent);border-radius:6px;color:var(--accent-2)}
-@media(max-width:760px){.sgrid{grid-template-columns:1fr}}
-
-/* ---------- links grid ---------- */
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.tile{display:flex;flex-direction:column;align-items:center;gap:11px;padding:24px 14px;text-align:center;
-  border:1px solid var(--rule);border-radius:13px;background:var(--paper);color:var(--ink);font-size:14px;font-weight:600}
-.tile svg{width:22px;height:22px;color:var(--accent)}
-.tile:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;transform:translateY(-3px)}
-.tile{transition:transform .18s,border-color .18s}
-@media(max-width:760px){.tiles{grid-template-columns:repeat(2,1fr)}}
+/* ---------- news ---------- */
+.news{list-style:none;margin:0;padding:0;max-height:440px;overflow-y:auto;padding-right:10px}
+.news li{display:grid;grid-template-columns:88px minmax(0,1fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--rule)}
+.news time{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em;padding-top:3px}
+.news p{font-size:15.5px;margin:0}
+.new{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 6px;border-radius:3px;background:var(--enh);color:#fff;margin-left:6px;vertical-align:2px}
 
 /* ---------- footer ---------- */
-footer{background:#0B1622;color:#C6D5E0;padding-block:clamp(46px,5vw,68px)}
-html[data-theme="dark"] footer{background:var(--wash);border-top:1px solid var(--rule);color:var(--ink-2)}
-.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:clamp(26px,4vw,56px)}
-footer h2{font-family:var(--serif);font-size:2rem;color:#fff;margin-bottom:12px}
+footer{background:var(--ink);color:#C3D0DC;padding-block:clamp(48px,5vw,72px);border-top:0}
+html[data-theme="dark"] footer{background:var(--band);border-top:1px solid var(--rule);color:var(--ink-2)}
+footer h2{font-family:var(--sans);font-size:clamp(1.6rem,3vw,2.3rem);color:#fff;margin-bottom:14px;max-width:20ch}
 html[data-theme="dark"] footer h2{color:var(--ink)}
-footer p{color:#96AABB;max-width:42ch;font-size:15.5px}
+footer p{color:#93A6B6;max-width:44ch}
 html[data-theme="dark"] footer p{color:var(--ink-2)}
-footer h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;color:#7C93A6;margin-bottom:12px}
+footer h4{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:#7A8E9F;margin-bottom:12px}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px}
-footer a{color:#E6EEF4;border-bottom:1px solid #2B3F51}
+footer a{color:#E4EDF4;border-bottom:1px solid #2B3D4C}
 html[data-theme="dark"] footer a{color:var(--ink);border-bottom-color:var(--rule)}
 footer a:hover{border-bottom-color:currentColor;text-decoration:none}
-.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;
-  margin-top:44px;padding-top:22px;border-top:1px solid #22333F;font-size:13px;color:#7C93A6}
-html[data-theme="dark"] .fbot{border-top-color:var(--rule);color:var(--ink-3)}
-.fsoc{display:flex;gap:9px}
-.fsoc a{width:38px;height:38px;display:grid;place-items:center;border:1px solid #2B3F51;border-radius:50%;color:#C6D5E0}
-html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
-.fsoc a:hover{border-color:currentColor}
-.fsoc svg{width:16px;height:16px}
-@media(max-width:800px){.fgrid{grid-template-columns:1fr;gap:30px}}
+.fg{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:clamp(26px,4vw,56px)}
+.fb{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;margin-top:42px;padding-top:20px;
+  border-top:1px solid #22323F;font-family:var(--mono);font-size:11.5px;color:#7A8E9F}
+html[data-theme="dark"] .fb{border-top-color:var(--rule);color:var(--ink-3)}
+@media(max-width:800px){.fg{grid-template-columns:1fr;gap:28px}}
 
-.hide{display:none !important}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.hide{display:none!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 @media print{
-  .hdr,.searchbar,.btns,.socials,.filters,.chips,.tiles,.hero-photo,footer{display:none}
-  body{font-size:10.5pt}section{padding-block:12pt}
-  .thread,.pub{break-inside:avoid;border:0}
-  .thread-fig,.pthumb{display:none}
+  .bar,.sbar,.acts,.filters,.mapwrap,.legend,.utils,footer{display:none}
+  body{font-size:10.5pt}section{padding-block:12pt;border-top:1px solid #999}
+  .thread,.pub{break-inside:avoid}.thumb,.thread figure{display:none}
 }
 </style>
 </head>
@@ -284,214 +290,242 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
 <a class="skip" href="#main">Skip to content</a>
 
 <svg style="display:none" aria-hidden="true">
-  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
-  <symbol id="i-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7.5 15h9"/></symbol>
-  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H11v18H5.5A2.5 2.5 0 0 1 3 18.5z"/><path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H13v18h5.5a2.5 2.5 0 0 0 2.5-2.5z"/></symbol>
-  <symbol id="i-news" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h13v16H5a1 1 0 0 1-1-1z"/><path d="M17 8h3v10a2 2 0 0 1-3 1.7"/><path d="M7.5 8h6M7.5 12h6M7.5 16h4"/></symbol>
-  <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5 12 4l10 4.5-10 4.5z"/><path d="M6 11v4.5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V11"/></symbol>
-  <symbol id="i-hands" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7" r="3"/><circle cx="16.5" cy="8.5" r="2.5"/><path d="M2.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M15 14.2c3 .2 5 2.3 5 5.3"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
-  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
-  <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
-  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 6.5 9 6 9-6"/></symbol>
-  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.4 6.8 9.7.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.8-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.8 1 1.7 1 2.8 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.3 10.3 0 0 0 22 12.3C22 6.6 17.5 2 12 2z"/></symbol>
-  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95C21.4 8.75 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.05-3.32-2.06 0-2.37 1.58-2.37 3.21V21h-3.9z"/></symbol>
-  <symbol id="i-scholar" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 1 8l11 6 9-4.9V16h2V8zM5 13.2V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-3.8l-7 3.8z"/></symbol>
-  <symbol id="i-orcid" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.2 6.4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-.8 3.2h1.6v7.6H7.4zm3.4 0h3c2.4 0 3.9 1.6 3.9 3.8s-1.6 3.8-3.9 3.8h-3zm1.6 1.4v4.8h1.3c1.6 0 2.4-1 2.4-2.4s-.8-2.4-2.4-2.4z"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
-  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.6 2.6L16 9.5"/></symbol>
-  <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 5.5H4.5v1A3.5 3.5 0 0 0 8 10M17 5.5h2.5v1A3.5 3.5 0 0 1 16 10"/><path d="M9.5 20h5M12 14v6"/></symbol>
-  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.3 2.9-5.5 6.5-5.5s6.5 2.2 6.5 5.5"/><path d="M16.5 5.2a3.2 3.2 0 0 1 0 5.6M17.5 14.8c2.4.6 4 2.5 4 5.2"/></symbol>
-  <symbol id="i-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5 16.2c.5-1.3 1.9-2 3.5-2s3 .7 3.5 2M15 10h4M15 14h4"/></symbol>
-  <symbol id="i-review" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M15 4v5h5M8 13h8M8 17h5"/></symbol>
-  <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 8-4 4 4 4M15 8l4 4-4 4"/></symbol>
-  <symbol id="i-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h7v7a5 5 0 0 1-5 5M13 6h7v7a5 5 0 0 1-5 5"/></symbol>
-  <symbol id="i-diamond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2.5 21.5 12 12 21.5 2.5 12z"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3 6.5 9 6 9-6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></symbol>
+<symbol id="i-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.4 6.8 9.7.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.4-3.4-1.4-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.8-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9 9 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.8 1 1.7 1 2.8 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.3 10.3 0 0 0 22 12.3C22 6.6 17.5 2 12 2z"/></symbol>
+<symbol id="i-scholar" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 1 8l11 6 9-4.9V16h2V8zM5 13.2V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-3.8l-7 3.8z"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95C21.4 8.75 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.05-3.32-2.06 0-2.37 1.58-2.37 3.21V21h-3.9z"/></symbol>
+<symbol id="i-orcid" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.2 6.4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-.8 3.2h1.6v7.6H7.4zm3.4 0h3c2.4 0 3.9 1.6 3.9 3.8s-1.6 3.8-3.9 3.8h-3zm1.6 1.4v4.8h1.3c1.6 0 2.4-1 2.4-2.4s-.8-2.4-2.4-2.4z"/></symbol>
 </svg>
 
-<header class="hdr">
-  <div class="wrap hdr-in">
-    <a class="mark" href="#top">Md Shibly Sadique</a>
-    <nav class="mainnav" aria-label="Sections">
-      <a href="#about"><svg><use href="#i-user"/></svg><span>About</span></a>
-      <a href="#research"><svg><use href="#i-flask"/></svg><span>Research</span></a>
-      <a href="#papers"><svg><use href="#i-book"/></svg><span>Papers</span></a>
-      <a href="#news"><svg><use href="#i-news"/></svg><span>News</span></a>
-      <a href="#teaching"><svg><use href="#i-cap"/></svg><span>Teaching</span></a>
-      <a href="#service"><svg><use href="#i-hands"/></svg><span>Service</span></a>
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="sig" href="#top">Md Shibly Sadique<span>ODU VISION LAB</span></a>
+    <nav class="secs" aria-label="Sections">
+      <a href="#program">Program</a><a href="#threads">Threads</a><a href="#papers">Papers</a>
+      <a href="#trajectory">Trajectory</a><a href="#students">Students</a>
+      <a href="#teaching">Teaching</a><a href="#news">News</a>
     </nav>
-    <div class="tools">
-      <button class="tool" id="theme" aria-pressed="false" aria-label="Toggle dark mode" title="Dark mode"><svg><use href="#i-moon"/></svg></button>
-      <button class="tool" id="dys" aria-pressed="false" aria-label="Toggle high-legibility text" title="High-legibility text"><svg><use href="#i-eye"/></svg></button>
-      <button class="tool" id="searchbtn" aria-pressed="false" aria-controls="searchbar" aria-label="Search this site" title="Search"><svg><use href="#i-search"/></svg></button>
+    <div class="utils">
+      <button class="u" id="theme" aria-pressed="false" aria-label="Toggle dark mode"><svg><use href="#i-moon"/></svg></button>
+      <button class="u" id="legible" aria-pressed="false" aria-label="Toggle high-legibility text"><svg><use href="#i-eye"/></svg></button>
+      <button class="u" id="sbtn" aria-pressed="false" aria-controls="sbar" aria-label="Search"><svg><use href="#i-search"/></svg></button>
     </div>
   </div>
 </header>
 
-<div class="searchbar" id="searchbar">
-  <div class="wrap">
-    <input type="search" id="q" placeholder="Search publications, research, and news…" aria-label="Search the site">
-    <span class="count" id="qcount"></span>
-  </div>
-</div>
+<div class="sbar" id="sbar"><div class="wrap">
+  <input type="search" id="q" placeholder="Search papers, threads, news…" aria-label="Search">
+  <span class="n" id="qn"></span>
+</div></div>
 
 <main id="main">
 
-<div class="hero" id="top">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow"><svg><use href="#i-pin"/></svg> Biomedical Image Analysis · Old Dominion University</p>
-      <h1>Medical imaging AI that<em>knows its own limits.</em></h1>
-      <p class="bio"><b>Md Shibly Sadique</b> — PhD candidate in the Vision Lab at Old Dominion University, advised by Dr. Khan M. Iftekharuddin. I build deep learning and physics-informed models for brain tumor analysis, and study where those models stop being trustworthy.</p>
-      <div class="stats">
-        <div class="stat"><b>15+</b><span>Publications</span></div>
-        <div class="stat"><b>3</b><span>MICCAI Challenges</span></div>
-        <div class="stat"><b>2027</b><span>PhD Expected</span></div>
+<!-- ============================ HERO ============================ -->
+<div class="hero wrap" id="top">
+  <p class="kicker">Computational neuro-oncology · ODU Vision Lab</p>
+  <h1>Trustworthy AI for recurrent <b>brain tumor</b> diagnosis and prognosis.</h1>
+  <p class="pullquote">A model that cannot say <em>"I don't know"</em> should not be making a treatment decision.</p>
+  <div class="claim">
+    <div>
+      <p class="lede">I build machine learning for multimodal MRI that separates tumor recurrence from radiation necrosis, predicts survival under censored follow-up, and reports where its own prediction is unreliable. Medical imaging models are evaluated on how often they are right; in a clinic, what matters at least as much is whether they can tell you <b>when they are likely to be wrong</b>.</p>
+      <p class="lede">That work sits inside a wider NIH-funded effort on trustworthy AI for high-grade brain tumor recurrence. My dissertation pushes it one level down, asking <b>which conclusions are recoverable at all</b> from clinical data this sparse and this noisy.</p>
+      <div class="who">
+        <img src="images/portrait.jpg" alt="Md Shibly Sadique" width="880" height="880" fetchpriority="high">
+        <div><b>Md Shibly Sadique</b>PhD candidate, Electrical &amp; Computer Engineering<br>Vision Lab, Old Dominion University</div>
       </div>
-      <div class="btns">
-        <a class="btn btn-fill" href="resume.pdf"><svg><use href="#i-doc"/></svg> Résumé</a>
-        <a class="btn" href="cv.pdf"><svg><use href="#i-doc"/></svg> Full CV</a>
-      </div>
-      <div class="socials">
-        <a class="soc" href="mailto:msadi002@odu.edu" aria-label="Email"><svg><use href="#i-mail"/></svg></a>
-        <a class="soc" href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&amp;hl=en" aria-label="Google Scholar"><svg><use href="#i-scholar"/></svg></a>
-        <a class="soc" href="https://orcid.org/0000-0002-6734-6802" aria-label="ORCID"><svg><use href="#i-orcid"/></svg></a>
-        <a class="soc" href="https://github.com/shiblyg" aria-label="GitHub"><svg><use href="#i-github"/></svg></a>
-        <a class="soc" href="https://www.linkedin.com/in/md-shibly-sadique-277b891a5/" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
+      <div class="acts">
+        <a class="b b-solid" href="cv.pdf"><svg><use href="#i-doc"/></svg> Academic CV</a>
+        <a class="b" href="resume.pdf"><svg><use href="#i-doc"/></svg> Résumé</a>
+        <a class="b" href="mailto:msadi002@odu.edu"><svg><use href="#i-mail"/></svg> Email</a>
+        <a class="b" href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&amp;hl=en"><svg><use href="#i-scholar"/></svg> Scholar</a>
       </div>
     </div>
-    <div class="hero-photo">
-      <img src="images/portrait.jpg" alt="Md Shibly Sadique" width="880" height="880" fetchpriority="high">
-      <div class="badge-card">
-        <div class="ic"><svg><use href="#i-mic"/></svg></div>
-        <div><b>Invited talk, SPIE Optics + Photonics</b><span>Adult-to-pediatric domain shift · San Diego, Aug 2026</span></div>
-      </div>
+    <div class="sidecard">
+      <h3>At a glance</h3>
+      <div class="fact"><span>Peer-reviewed</span><b>15 + 1 preprint</b></div>
+      <div class="fact"><span>Advisor</span><b>K. M. Iftekharuddin</b></div>
+      <div class="fact"><span>Funding context</span><b>NIH / NIBIB</b></div>
+      <div class="fact"><span>MICCAI BraTS</span><b>2021-2026</b></div>
+      <div class="fact"><span>Teaching</span><b>7 years</b></div>
+      <div class="fact"><span>PhD expected</span><b>July 2027</b></div>
+      <div class="fact"><span>Available from</span><b>Mid 2027</b></div>
     </div>
   </div>
 </div>
 
-<section id="about">
-  <div class="wrap cols">
-    <div class="cols-head"><p class="eyebrow"><svg><use href="#i-user"/></svg> About</p></div>
-    <div>
-      <p>A model that segments a tumor is only useful in a clinic if someone knows when to distrust it. That question runs through everything I do: segmentation architectures that stay small enough to deploy, uncertainty estimates that flag the voxels a radiologist should look at again, and domain adaptation for the patients who look nothing like the training set.</p>
-      <p>My dissertation extends this into physics-informed territory — coupling PDE-based tumor growth models with Bayesian inference, and asking which growth dynamics are actually recoverable from imaging that is sparse and noisy.</p>
-      <p>Alongside the research I have spent seven years teaching circuits, signals, and senior design at ODU, and mentored two NSF-REU students on privacy-preserving medical image analysis.</p>
-      <div class="btns" style="margin-top:24px;margin-bottom:0">
-        <a class="btn btn-fill" href="resume.pdf"><svg><use href="#i-doc"/></svg> Résumé</a>
-        <a class="btn" href="cv.pdf"><svg><use href="#i-doc"/></svg> Full CV</a>
-        <a class="btn" href="cv.html">CV on the web</a>
+<!-- ============================ PROBLEM ============================ -->
+<section class="banded" id="problem">
+  <div class="wrap">
+    <div class="shead">
+      <span class="snum">01</span>
+      <h2>The problem I work on</h2>
+      <span class="aside">Framing</span>
+    </div>
+    <div class="pgrid">
+      <p class="problem">Neuro-oncology is where machine learning's assumptions break <em>all at once</em>.</p>
+      <div class="body">
+        <p>Scans are noisy and vary by scanner and protocol. Survival outcomes are censored when patients are lost to follow-up. Cohorts run to 50 or 200 patients, not 50,000, and the classes that matter clinically are the rare ones. Meanwhile the decisions cannot wait: is this enhancement recurrence or radiation necrosis, how long does this patient have, does this treatment plan need to change.</p>
+        <p>Most methods are built for pristine data and degrade quietly when they meet this. Quietly is the dangerous part. A model that is 8% less accurate and says so is usable. A model that is 8% less accurate and reports the same confidence as before is not.</p>
+        <p>So the research question is not only how to make these models more accurate. It is how to make them <b>honest about their own limits</b>, and how to know which limits are fundamental to the data rather than fixable with a better architecture.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="research" class="dotted">
+<!-- ============================ PROGRAM MAP ============================ -->
+<section id="program">
   <div class="wrap">
-    <p class="eyebrow"><svg><use href="#i-flask"/></svg> What I study</p>
-    <h2 style="font-size:clamp(2.1rem,4.4vw,3.4rem);margin-bottom:34px">Research Focus</h2>
+    <div class="shead">
+      <span class="snum">02</span>
+      <h2>The program, mapped</h2>
+      <span class="aside">Select a project</span>
+    </div>
+    <p style="color:var(--ink-2);max-width:64ch;margin-bottom:22px">Six projects across nine years. The horizontal axis is time; the three lanes are the method families they belong to. What the shape shows is a program rather than a sequence of unrelated papers: reliability work that began in segmentation moved into prognosis, then into domain shift, and now into the physics.</p>
+
+    <div class="legend" role="group" aria-label="Filter by method family">
+      <button class="lg" data-lane="all" aria-pressed="true">All lanes</button>
+      <button class="lg" data-lane="a" aria-pressed="false" style="--c:#1E4E8C"><span class="sw" style="background:#1E4E8C"></span>Uncertainty &amp; reliability</button>
+      <button class="lg" data-lane="b" aria-pressed="false" style="--c:#B8860B"><span class="sw" style="background:#B8860B"></span>Domain shift &amp; generalization</button>
+      <button class="lg" data-lane="c" aria-pressed="false" style="--c:#A8403D"><span class="sw" style="background:#A8403D"></span>Statistical &amp; physics-based modeling</button>
+    </div>
+
+    <div class="mapwrap">
+      <svg viewBox="0 0 1000 392" role="img" aria-label="Timeline of six research projects across three method families, 2018 to 2028">
+        <!-- year grid -->
+        <g id="grid"></g>
+        <!-- lane separators and labels -->
+        <line class="lane-sep" x1="196" y1="136" x2="980" y2="136"/>
+        <line class="lane-sep" x1="196" y1="206" x2="980" y2="206"/>
+        <text class="lane-label" x="16" y="82">Uncertainty</text>
+        <text class="lane-label" x="16" y="96">&amp; reliability</text>
+        <text class="lane-label" x="16" y="172">Domain shift</text>
+        <text class="lane-label" x="16" y="186">&amp; generalization</text>
+        <text class="lane-label" x="16" y="284">Statistical</text>
+        <text class="lane-label" x="16" y="298">&amp; physics-based</text>
+        <g id="bars"></g>
+        <line class="nowline" id="nowline" y1="30" y2="348"/>
+        <text class="nowtext" id="nowtext" y="26">TODAY</text>
+      </svg>
+    </div>
+
+    <div class="readout" id="readout" aria-live="polite">
+      <h3 id="r-title">Select a project above</h3>
+      <p class="meta" id="r-meta">Six projects, 2018 to present</p>
+      <p id="r-body">Each bar spans the years the project was active. Bars that reach the dashed line are ongoing. Click any bar to read what it was and what came out of it, or filter by method family to see the through-line.</p>
+      <div class="links" id="r-links"></div>
+    </div>
+  </div>
+</section>
+<!-- ============================ THREADS ============================ -->
+<section class="banded" id="threads">
+  <div class="wrap">
+    <div class="shead"><span class="snum">03</span><h2>What each thread found</h2><span class="aside">Detail</span></div>
 
     <article class="thread" data-s>
-      <div class="thread-fig"><img src="images/fig-segmentation.jpg" alt="UNCE-NODE architecture with ground truth and predicted tumor masks" width="900" height="991" loading="lazy"></div>
-      <div class="thread-body">
-        <h3>Efficient Tumor Segmentation</h3>
-        <p class="q">"Can a segmentation network shrink enough to run in a hospital without losing accuracy?"</p>
-        <p>UNCE-NODE replaces the discrete residual stack of a U-Net with a neural ordinary differential equation, sharing weights across integration steps. The result is roughly 30% fewer trainable parameters at comparable Dice accuracy. Related work extends the same encoder to Sub-Saharan African glioma cohorts and to inpainting healthy tissue for BraTS 2023.</p>
-        <div class="tags"><span class="tag">Neural ODEs</span><span class="tag">U-Net · nnU-Net</span><span class="tag">Multimodal MRI</span><span class="tag">BraTS</span></div>
-        <div class="chips">
-          <a class="chip" href="papers/sadique-2022-miccai-neural-ode.pdf">MICCAI 2022</a>
-          <a class="chip" href="papers/sadique-unce-context-encoding.pdf">MICCAI 2021</a>
+      <div>
+        <span class="tag">2021-2024 · NIH / NIBIB · Statistical modeling</span>
+        <h3>Recurrence or radiation necrosis</h3>
+        <p class="q">Two conditions that look the same on MRI and call for opposite decisions.</p>
+        <p>I extract multiresolution radiomic and fractal texture features to separate them, then pair that with a copula-based survival model. The copula matters because standard Cox regression assumes censoring is independent of outcome, and in glioblastoma follow-up it is not: the patients who disappear from a study are not a random sample of the patients in it. Modelling that dependence is what makes the prognostic index trustworthy rather than merely fitted.</p>
+        <div class="links">
+          <a class="rl" href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf">IEEE JBHI 2024</a>
+          <a class="rl" href="papers/sadique-2022-spie-radiomic-texture.pdf">SPIE 2022</a>
         </div>
       </div>
+      <figure><img src="images/fig-recurrence.jpg" alt="Pipeline from multimodal MRI through radiomic features to copula survival modeling" width="1076" height="550" loading="lazy">
+      <figcaption>MRI, fractal and texture features, copula survival model, risk stratification.</figcaption></figure>
     </article>
 
     <article class="thread" data-s>
-      <div class="thread-fig"><img src="images/fig-recurrence.jpg" alt="Pipeline from multimodal MRI through radiomic features to copula survival modeling" width="1076" height="550" loading="lazy"></div>
-      <div class="thread-body">
-        <h3>Recurrence vs. Radiation Necrosis</h3>
-        <p class="q">"After treatment, does this scan show the tumor returning or the tissue reacting?"</p>
-        <p>The two look nearly identical on MRI and call for opposite clinical decisions. I extract multiresolution radiomic and fractal texture features to separate them, and pair that with a copula-based survival model that handles dependent censoring — a case standard Cox regression quietly assumes away.</p>
-        <div class="tags"><span class="tag">Radiomics</span><span class="tag">Copula survival</span><span class="tag">Glioblastoma</span><span class="tag">NIH / NIBIB</span></div>
-        <div class="chips">
-          <a class="chip" href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf">IEEE JBHI 2024</a>
-          <a class="chip" href="papers/sadique-2022-spie-radiomic-texture.pdf">SPIE 2022</a>
+      <div>
+        <span class="tag">2021-2023 · AMOS challenge · Uncertainty</span>
+        <h3>Segmentation that reports its own doubt</h3>
+        <p class="q">Which of these outputs should a human look at again?</p>
+        <p>An nnU-Net ensemble trained with 5-fold cross-validation yields two signals that mean different things: entropy-based total uncertainty, and mutual-information epistemic uncertainty. The separation is the point. Aleatoric uncertainty tells you the image is ambiguous; epistemic uncertainty tells you the model is out of its depth. Only the second is fixable with more data, and only the second should trigger review. Our team placed eighth in AMOS at MICCAI 2022.</p>
+        <div class="links"><a class="rl" href="papers/sadique-2023-spie-cam-uncertainty.pdf">SPIE 2023</a></div>
+      </div>
+      <figure><img src="images/fig-multiorgan.jpg" alt="Class activation mapping and uncertainty pipeline on abdominal CT" width="1400" height="713" loading="lazy">
+      <figcaption>Grad-CAM and knowledge-uncertainty pipeline on multi-organ CT.</figcaption></figure>
+    </article>
+
+    <article class="thread" data-s>
+      <div>
+        <span class="tag">2018-present · NIH / NIBIB · MICCAI BraTS</span>
+        <h3>Continuous depth, smaller model</h3>
+        <p class="q">Can a segmentation network shrink enough to run where the patients are?</p>
+        <p>UNCE-NODE replaces a U-Net's discrete residual stack with a neural ordinary differential equation, sharing weights across integration steps. Roughly 30% fewer trainable parameters at comparable Dice. The motivation is not elegance. Hospitals outside major research centers do not have research clusters, and a method that only runs on one is a method that only helps the patients already best served. The framework has gone into the MICCAI BraTS challenge every year since 2021.</p>
+        <div class="links">
+          <a class="rl" href="papers/sadique-2022-miccai-neural-ode.pdf">MICCAI 2022</a>
+          <a class="rl" href="papers/sadique-unce-context-encoding.pdf">MICCAI 2021</a>
         </div>
       </div>
+      <figure><img src="images/fig-segmentation.jpg" alt="UNCE-NODE architecture with ground truth and predicted tumor masks" width="900" height="991" loading="lazy">
+      <figcaption>UNCE baseline against UNCE-NODE, with predicted masks in three planes.</figcaption></figure>
     </article>
 
     <article class="thread" data-s>
-      <div class="thread-fig"><img src="images/fig-multiorgan.jpg" alt="Class activation mapping and uncertainty pipeline on abdominal CT" width="1400" height="713" loading="lazy"></div>
-      <div class="thread-body">
-        <h3>Knowing When a Model Is Uncertain</h3>
-        <p class="q">"Which of these segmentations should a human look at again?"</p>
-        <p>An ensemble of nnU-Nets trained with 5-fold cross-validation yields two complementary signals: entropy-based total uncertainty and mutual-information epistemic uncertainty. Together they stratify erroneous segmentations well enough to route difficult cases to a clinician, and class activation mapping shows which structures drove each decision. Our team placed eighth in the AMOS challenge at MICCAI 2022.</p>
-        <div class="tags"><span class="tag">Uncertainty</span><span class="tag">Ensembles</span><span class="tag">Grad-CAM</span><span class="tag">Explainability</span></div>
-        <div class="chips"><a class="chip" href="papers/sadique-2023-spie-cam-uncertainty.pdf">SPIE 2023</a></div>
-      </div>
-    </article>
-
-    <article class="thread" data-s>
-      <div class="thread-fig"><img src="images/fig-fmri.jpg" alt="Resting-state fMRI pipeline from BOLD signals to random forest classification" width="1300" height="310" loading="lazy"></div>
-      <div class="thread-body">
-        <h3>Functional Brain Networks</h3>
-        <p class="q">"Which functional networks actually carry the signal in opioid use disorder?"</p>
-        <p>Moving from structure to function: discrete wavelet features from resting-state fMRI BOLD signals, LASSO selection, and random forest classification separate opioid use disorder from healthy controls — and, more usefully, name the networks doing the discriminating. Interpretability was the design constraint here, not an afterthought.</p>
-        <div class="tags"><span class="tag">rs-fMRI</span><span class="tag">Wavelet features</span><span class="tag">Random forest</span><span class="tag">NIH</span></div>
-        <div class="chips">
-          <a class="chip" href="papers/temtam-2025-cbm-functional-brain-networks.pdf">Comput. Biol. Med. 2025</a>
-          <a class="chip" href="papers/temtam-oud-prediction-fmri-ml.pdf">SPIE 2023</a>
+      <div>
+        <span class="tag">2021-2025 · NIH · Statistical modeling</span>
+        <h3>Function, not just structure</h3>
+        <p class="q">Which functional networks carry the signal in opioid use disorder?</p>
+        <p>Discrete wavelet features from resting-state fMRI BOLD signals, LASSO selection, random forest classification. The classification result matters less than which networks the model leans on, because that is the part a clinician or neuroscientist can argue with. Interpretability was the design constraint from the start rather than a post-hoc addition.</p>
+        <div class="links">
+          <a class="rl" href="papers/temtam-2025-cbm-functional-brain-networks.pdf">Comput Biol Med 2025</a>
+          <a class="rl" href="papers/temtam-oud-prediction-fmri-ml.pdf">SPIE 2023</a>
         </div>
       </div>
+      <figure><img src="images/fig-fmri.jpg" alt="Resting-state fMRI pipeline from BOLD signals to random forest classification" width="1300" height="310" loading="lazy">
+      <figcaption>BOLD signals, wavelet features, LASSO selection, classification.</figcaption></figure>
     </article>
 
     <article class="thread" data-s>
-      <div class="thread-fig"><img src="images/spie-2026.jpg" alt="Presenting the pediatric domain adaptation work at SPIE Optics and Photonics 2026" width="383" height="460" loading="lazy"></div>
-      <div class="thread-body">
-        <h3>Adult-to-Pediatric Domain Shift</h3>
-        <p class="q">"What survives when the target population is scarce and anatomically different?"</p>
-        <p>Pediatric glioma datasets are orders of magnitude smaller than adult ones, and the tumors differ in location, anatomy, and enhancement. MF-DNN combines multiresolution fractal descriptors at the encoder bottleneck with a gradient-reversal module that pushes the network toward features an adult-versus-pediatric classifier cannot separate, plus Monte-Carlo dropout to flag low-confidence voxels for radiologist review.</p>
-        <div class="tags"><span class="tag">Domain adaptation</span><span class="tag">Fractal features</span><span class="tag">MC dropout</span><span class="tag">Pediatric</span></div>
-        <div class="chips"><span class="chip" style="border-style:dashed">SPIE Optics + Photonics 2026 · talk</span></div>
+      <div>
+        <span class="tag">2023-2026 · Domain shift</span>
+        <h3>When the target population is scarce</h3>
+        <p class="q">What survives transfer from adults to children?</p>
+        <p>Pediatric glioma datasets are orders of magnitude smaller than adult ones, and pediatric tumors differ in location, anatomy, and enhancement. MF-DNN combines multiresolution fractal descriptors at the encoder bottleneck with gradient-reversal domain alignment, pushing the network toward features an adult-versus-pediatric classifier cannot separate. Monte-Carlo dropout then flags the voxels where that transfer failed anyway, which is the honest part.</p>
+        <div class="links"><span class="rl" style="border-style:dashed">SPIE Optics + Photonics 2026 · talk</span></div>
       </div>
+      <figure><img src="images/spie-2026.jpg" alt="Presenting the pediatric domain adaptation work at SPIE 2026" width="383" height="460" loading="lazy">
+      <figcaption>Presenting the domain adaptation work, San Diego, August 2026.</figcaption></figure>
     </article>
 
-    <article class="thread" data-s style="grid-template-columns:1fr">
-      <div class="thread-body">
-        <h3>Physics-Informed Growth Under Noise</h3>
-        <p class="q">"Which tumor growth dynamics can imaging this sparse actually resolve?"</p>
-        <p>Dissertation work in progress. PDE-based tumor growth models are constrained less by their physics than by how sparsely and noisily we sample the patient. I am developing a Resolvable Expressive Capacity framework with eigentask decomposition and a Bayesian inference layer, aimed at digital twins of tumor evolution that stay honest about what the available imaging can and cannot resolve.</p>
-        <div class="tags"><span class="tag">PDE modeling</span><span class="tag">Bayesian inference</span><span class="tag">Digital twins</span><span class="tag">Ongoing</span></div>
+    <article class="thread solo" data-s>
+      <div>
+        <span class="tag">2025-present · Dissertation · Physics-based modeling</span>
+        <h3>What is learnable at all</h3>
+        <p class="q">Which tumor growth dynamics can imaging this sparse actually resolve?</p>
+        <p>PDE-based growth models are limited less by their physics than by how sparsely and noisily we sample the patient. I am developing a Resolvable Expressive Capacity framework with eigentask decomposition and a Bayesian inference layer, to characterize which growth directions are identifiable from a given observation schedule and which are not. The output is a digital twin that reports what it cannot know, which is the same commitment as the uncertainty work, pushed down to the level of the physics.</p>
       </div>
     </article>
   </div>
 </section>
+
+<!-- ============================ PAPERS ============================ -->
 <section id="papers">
   <div class="wrap">
-    <p class="eyebrow"><svg><use href="#i-book"/></svg> Selected work</p>
-    <h2 style="font-size:clamp(2.1rem,4.4vw,3.4rem);margin-bottom:10px">Publications</h2>
-    <p style="color:var(--ink-3);margin-bottom:26px">Fifteen peer-reviewed papers and one preprint. My name is in bold.</p>
-
+    <div class="shead"><span class="snum">04</span><h2>Publications</h2><span class="aside">15 + 1 preprint</span></div>
     <div class="filters" role="group" aria-label="Filter publications">
-      <button class="fbtn" data-f="all" aria-pressed="true">All</button>
-      <button class="fbtn" data-f="journal" aria-pressed="false">Journal</button>
-      <button class="fbtn" data-f="conference" aria-pressed="false">Conference</button>
-      <button class="fbtn" data-f="workshop" aria-pressed="false">Chapters &amp; workshops</button>
-      <button class="fbtn" data-f="preprint" aria-pressed="false">Preprint</button>
+      <button class="f" data-f="all" aria-pressed="true">All</button>
+      <button class="f" data-f="journal" aria-pressed="false">Journal</button>
+      <button class="f" data-f="conference" aria-pressed="false">Conference</button>
+      <button class="f" data-f="workshop" aria-pressed="false">Chapters &amp; workshops</button>
+      <button class="f" data-f="preprint" aria-pressed="false">Preprint</button>
     </div>
-
     <div id="publist">
-
-      <article class="pub" data-s data-g="journal">
+<article class="pub" data-s data-g="journal">
+        <div class="pyr">2025</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> CBM 2025</span><span class="vfull">Computers in Biology and Medicine, 196(C), 110946</span></div>
+          <div class="pv">Computers in Biology and Medicine, 196(C), 110946</div>
           <h3><a href="papers/temtam-2025-cbm-functional-brain-networks.pdf">Functional Brain Network Identification in Opioid Use Disorder Using Machine Learning Analysis of Resting-State fMRI BOLD Signals</a></h3>
-          <p class="take">Wavelet-domain features from resting-state BOLD signals identify which functional networks distinguish opioid use disorder from healthy controls.</p>
-          <p class="auth">A. Temtam, M. A. Witherow, L. Ma, <b>M. S. Sadique</b>, F. G. Moeller, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/temtam-2025-cbm-functional-brain-networks.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b1"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b1">@article{temtam2025functional,
+          <p class="tk">Wavelet-domain features from resting-state BOLD signals identify which functional networks distinguish opioid use disorder from healthy controls.</p>
+          <p class="au">A. Temtam, M. A. Witherow, L. Ma, <b>M. S. Sadique</b>, F. G. Moeller, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/temtam-2025-cbm-functional-brain-networks.pdf">Paper</a><button class="ch" data-bib="b1">BibTeX</button></div>
+          <pre class="bib" id="b1">@article{temtam2025functional,
   title   = {Functional brain network identification in opioid use disorder using
              machine learning analysis of resting-state fMRI BOLD signals},
   author  = {Temtam, Ahmed and Witherow, Megan A. and Ma, Liangsuo and
@@ -500,17 +534,18 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
   volume  = {196}, pages = {110946}, year = {2025}
 }</pre>
         </div>
-        <div class="pthumb"><img src="images/fig-fmri.jpg" alt="" width="1300" height="310" loading="lazy"></div>
+        <div class="thumb"><img src="images/fig-fmri.jpg" alt="" width="1300" height="310" loading="lazy"></div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="journal">
+      <article class="pub" data-s data-g="journal">
+        <div class="pyr">2025</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> JCTS 2025</span><span class="vfull">Journal of Clinical and Translational Science, 9(s1), 110-111</span></div>
+          <div class="pv">Journal of Clinical and Translational Science, 9(s1), 110-111</div>
           <h3>Differentiating Opioid Use Disorder from Healthy Controls via ML Analysis of rs-fMRI Networks</h3>
-          <p class="take">A short-form companion study carrying the network analysis to a translational-science audience.</p>
-          <p class="auth">A. Temtam, M. A. Witherow, L. Ma, <b>M. S. Sadique</b>, F. G. Moeller, C. Kenneth, D. Wright, K. M. Iftekharuddin</p>
-          <div class="chips"><button class="chip" data-bib="b2"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b2">@article{temtam2025differentiating,
+          <p class="tk">A short-form companion study carrying the network analysis to a translational-science audience.</p>
+          <p class="au">A. Temtam, M. A. Witherow, L. Ma, <b>M. S. Sadique</b>, F. G. Moeller, C. Kenneth, D. Wright, K. M. Iftekharuddin</p>
+          <div class="links"><button class="ch" data-bib="b2">BibTeX</button></div>
+          <pre class="bib" id="b2">@article{temtam2025differentiating,
   title   = {Differentiating opioid use disorder from healthy controls via machine
              learning analysis of resting-state fMRI networks},
   author  = {Temtam, Ahmed and Witherow, Megan A. and Ma, Liangsuo and
@@ -523,13 +558,14 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
       </article>
 
       <article class="pub" data-s data-g="journal">
+        <div class="pyr">2024</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> IEEE JBHI 2024</span><span class="vfull">IEEE Journal of Biomedical and Health Informatics</span></div>
+          <div class="pv">IEEE Journal of Biomedical and Health Informatics</div>
           <h3><a href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf">Brain Tumor Recurrence vs. Radiation Necrosis Classification and Patient Survivability Prediction</a></h3>
-          <p class="take">Multiresolution radiomic features separate true recurrence from radiation necrosis, and a copula survival model handles the dependent censoring Cox regression assumes away.</p>
-          <p class="auth"><b>M. S. Sadique</b>, W. Farzana, A. Temtam, E. Lappinen, A. Vossough, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b3"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b3">@article{sadique2024brain,
+          <p class="tk">Multiresolution radiomic features separate true recurrence from radiation necrosis, and a copula survival model handles the dependent censoring Cox regression assumes away.</p>
+          <p class="au"><b>M. S. Sadique</b>, W. Farzana, A. Temtam, E. Lappinen, A. Vossough, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf">Paper</a><button class="ch" data-bib="b3">BibTeX</button></div>
+          <pre class="bib" id="b3">@article{sadique2024brain,
   title   = {Brain tumor recurrence vs. radiation necrosis classification and
              patient survivability prediction},
   author  = {Sadique, Md Shibly and Farzana, Walia and Temtam, Ahmed and
@@ -537,17 +573,18 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
   journal = {IEEE Journal of Biomedical and Health Informatics}, year = {2024}
 }</pre>
         </div>
-        <div class="pthumb"><img src="images/fig-survival.jpg" alt="" width="1400" height="769" loading="lazy"></div>
+        <div class="thumb"><img src="images/fig-survival.jpg" alt="" width="1400" height="769" loading="lazy"></div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="journal">
+      <article class="pub" data-s data-g="journal">
+        <div class="pyr">2017</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> IJAREEIE 2017</span><span class="vfull">Int'l Journal of Advanced Research in Electrical, Electronics and Instrumentation Engineering</span></div>
+          <div class="pv">Int'l Journal of Advanced Research in Electrical, Electronics and Instrumentation Engineering</div>
           <h3>Design and Fabrication of Slot-Loaded Microstrip Patch Antenna at 2.45 GHz</h3>
-          <p class="take">Earlier work: simulation, fabrication, and measurement of a slot-loaded patch antenna.</p>
-          <p class="auth">M. A. R. Ohi, <b>M. S. Sadique</b>, S. Hussain, A. Ahmed</p>
-          <div class="chips"><button class="chip" data-bib="b4"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b4">@article{ohi2017design,
+          <p class="tk">Earlier work: simulation, fabrication, and measurement of a slot-loaded patch antenna.</p>
+          <p class="au">M. A. R. Ohi, <b>M. S. Sadique</b>, S. Hussain, A. Ahmed</p>
+          <div class="links"><button class="ch" data-bib="b4">BibTeX</button></div>
+          <pre class="bib" id="b4">@article{ohi2017design,
   title   = {Design and fabrication of slot-loaded microstrip patch antenna at 2.45 GHz},
   author  = {Ohi, M. A. R. and Sadique, Md Shibly and Hussain, S. and Ahmed, Anis},
   journal = {International Journal of Advanced Research in Electrical,
@@ -556,14 +593,15 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
         </div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="conference">
+      <article class="pub" data-s data-g="conference">
+        <div class="pyr">2024</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> SPIE 2024</span><span class="vfull">Medical Imaging: Computer-Aided Diagnosis, vol. 12927, 368-375</span></div>
+          <div class="pv">Medical Imaging: Computer-Aided Diagnosis, vol. 12927, 368-375</div>
           <h3>Domain Adaptive Federated Learning for Multi-Institution Molecular Mutation Prediction and Bias Identification</h3>
-          <p class="take">Federated training across institutions with domain alignment, and an audit of the site-level bias that survives it.</p>
-          <p class="auth">W. Farzana, M. A. Witherow, I. Longoria, <b>M. S. Sadique</b>, A. Temtam, K. M. Iftekharuddin</p>
-          <div class="chips"><button class="chip" data-bib="b5"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b5">@inproceedings{farzana2024domain,
+          <p class="tk">Federated training across institutions with domain alignment, and an audit of the site-level bias that survives it.</p>
+          <p class="au">W. Farzana, M. A. Witherow, I. Longoria, <b>M. S. Sadique</b>, A. Temtam, K. M. Iftekharuddin</p>
+          <div class="links"><button class="ch" data-bib="b5">BibTeX</button></div>
+          <pre class="bib" id="b5">@inproceedings{farzana2024domain,
   title     = {Domain adaptive federated learning for multi-institution molecular
                mutation prediction and bias identification},
   author    = {Farzana, Walia and Witherow, Megan A. and Longoria, I. and
@@ -575,13 +613,14 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
       </article>
 
       <article class="pub" data-s data-g="conference">
+        <div class="pyr">2023</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> SPIE 2023</span><span class="vfull">Medical Imaging: Computer-Aided Diagnosis, vol. 12465, 169-174</span></div>
+          <div class="pv">Medical Imaging: Computer-Aided Diagnosis, vol. 12465, 169-174</div>
           <h3><a href="papers/sadique-2023-spie-cam-uncertainty.pdf">Class Activation Mapping and Uncertainty Estimation in Multi-Organ Segmentation</a></h3>
-          <p class="take">Entropy and epistemic uncertainty from an nnU-Net ensemble stratify erroneous segmentations; Grad-CAM shows what drove each one.</p>
-          <p class="auth"><b>M. S. Sadique</b>, W. Farzana, A. Temtam, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/sadique-2023-spie-cam-uncertainty.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b6"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b6">@inproceedings{sadique2023class,
+          <p class="tk">Entropy and epistemic uncertainty from an nnU-Net ensemble stratify erroneous segmentations; Grad-CAM shows what drove each one.</p>
+          <p class="au"><b>M. S. Sadique</b>, W. Farzana, A. Temtam, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/sadique-2023-spie-cam-uncertainty.pdf">Paper</a><button class="ch" data-bib="b6">BibTeX</button></div>
+          <pre class="bib" id="b6">@inproceedings{sadique2023class,
   title     = {Class activation mapping and uncertainty estimation in
                multi-organ segmentation},
   author    = {Sadique, Md Shibly and Farzana, Walia and Temtam, Ahmed and
@@ -590,17 +629,18 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
   volume    = {12465}, pages = {169--174}, year = {2023}
 }</pre>
         </div>
-        <div class="pthumb"><img src="images/fig-multiorgan.jpg" alt="" width="1400" height="713" loading="lazy"></div>
+        <div class="thumb"><img src="images/fig-multiorgan.jpg" alt="" width="1400" height="713" loading="lazy"></div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="conference">
+      <article class="pub" data-s data-g="conference">
+        <div class="pyr">2023</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> SPIE 2023</span><span class="vfull">Medical Imaging: Computer-Aided Diagnosis, vol. 12465, 142-146</span></div>
+          <div class="pv">Medical Imaging: Computer-Aided Diagnosis, vol. 12465, 142-146</div>
           <h3><a href="papers/temtam-oud-prediction-fmri-ml.pdf">Opioid Use Disorder Prediction Using Machine Learning of fMRI Data</a></h3>
-          <p class="take">The first pass at the fMRI classification pipeline that later became the Computers in Biology and Medicine paper.</p>
-          <p class="auth">A. Temtam, L. Ma, F. G. Moeller, <b>M. S. Sadique</b>, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/temtam-oud-prediction-fmri-ml.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b7"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b7">@inproceedings{temtam2023opioid,
+          <p class="tk">The first pass at the fMRI classification pipeline that later became the Computers in Biology and Medicine paper.</p>
+          <p class="au">A. Temtam, L. Ma, F. G. Moeller, <b>M. S. Sadique</b>, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/temtam-oud-prediction-fmri-ml.pdf">Paper</a><button class="ch" data-bib="b7">BibTeX</button></div>
+          <pre class="bib" id="b7">@inproceedings{temtam2023opioid,
   title     = {Opioid use disorder prediction using machine learning of fMRI data},
   author    = {Temtam, Ahmed and Ma, Liangsuo and Moeller, F. Gerard and
                Sadique, Md Shibly and Iftekharuddin, Khan M.},
@@ -611,13 +651,14 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
       </article>
 
       <article class="pub" data-s data-g="conference">
+        <div class="pyr">2022</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> SPIE 2022</span><span class="vfull">Medical Imaging: Computer-Aided Diagnosis, vol. 12033, 668-674</span></div>
+          <div class="pv">Medical Imaging: Computer-Aided Diagnosis, vol. 12033, 668-674</div>
           <h3><a href="papers/sadique-2022-spie-radiomic-texture.pdf">Radiomic Texture Feature Descriptor to Distinguish Recurrent Brain Tumor from Radiation Necrosis Using Multimodal MRI</a></h3>
-          <p class="take">Texture descriptors across multiple resolutions, applied to the recurrence-versus-necrosis problem on multimodal MRI.</p>
-          <p class="auth"><b>M. S. Sadique</b>, A. Temtam, E. Lappinen, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/sadique-2022-spie-radiomic-texture.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b8"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b8">@inproceedings{sadique2022radiomic,
+          <p class="tk">Texture descriptors across multiple resolutions, applied to the recurrence-versus-necrosis problem on multimodal MRI.</p>
+          <p class="au"><b>M. S. Sadique</b>, A. Temtam, E. Lappinen, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/sadique-2022-spie-radiomic-texture.pdf">Paper</a><button class="ch" data-bib="b8">BibTeX</button></div>
+          <pre class="bib" id="b8">@inproceedings{sadique2022radiomic,
   title     = {Radiomic texture feature descriptor to distinguish recurrent brain
                tumor from radiation necrosis using multimodal MRI},
   author    = {Sadique, Md Shibly and Temtam, Ahmed and Lappinen, Eric and
@@ -626,17 +667,18 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
   volume    = {12033}, pages = {668--674}, year = {2022}
 }</pre>
         </div>
-        <div class="pthumb"><img src="images/fig-recurrence.jpg" alt="" width="1076" height="550" loading="lazy"></div>
+        <div class="thumb"><img src="images/fig-recurrence.jpg" alt="" width="1076" height="550" loading="lazy"></div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="workshop">
+      <article class="pub" data-s data-g="workshop">
+        <div class="pyr">2023</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> Springer 2023</span><span class="vfull">Cross-Modality Domain Adaptation for Medical Image Segmentation, 322-331</span></div>
+          <div class="pv">Cross-Modality Domain Adaptation for Medical Image Segmentation, 322-331</div>
           <h3>Brain Tumor Segmentation: Glioma Segmentation in Sub-Saharan Africa Patients Using nnU-Net</h3>
-          <p class="take">Adapting a segmentation pipeline to an under-represented cohort with markedly different acquisition conditions.</p>
-          <p class="auth"><b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, A. Glandon, A. Temtam, K. M. Iftekharuddin</p>
-          <div class="chips"><button class="chip" data-bib="b9"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b9">@incollection{sadique2023glioma,
+          <p class="tk">Adapting a segmentation pipeline to an under-represented cohort with markedly different acquisition conditions.</p>
+          <p class="au"><b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, A. Glandon, A. Temtam, K. M. Iftekharuddin</p>
+          <div class="links"><button class="ch" data-bib="b9">BibTeX</button></div>
+          <pre class="bib" id="b9">@incollection{sadique2023glioma,
   title     = {Brain tumor segmentation: glioma segmentation in Sub-Saharan
                Africa patients using nnU-Net},
   author    = {Sadique, Md Shibly and Rahman, M. M. and Farzana, Walia and
@@ -648,14 +690,15 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
         </div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="workshop">
+      <article class="pub" data-s data-g="workshop">
+        <div class="pyr">2023</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> Springer 2023</span><span class="vfull">Cross-Modality Domain Adaptation for Medical Image Segmentation, 332-340</span></div>
+          <div class="pv">Cross-Modality Domain Adaptation for Medical Image Segmentation, 332-340</div>
           <h3>Pediatric Brain Tumor Segmentation Using Multiresolution Fractal Deep Neural Network</h3>
-          <p class="take">Fractal descriptors give the encoder scale-invariant structure to hold onto when pediatric training data is scarce.</p>
-          <p class="auth">A. Temtam, <b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, K. M. Iftekharuddin</p>
-          <div class="chips"><button class="chip" data-bib="b10"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b10">@incollection{temtam2023pediatric,
+          <p class="tk">Fractal descriptors give the encoder scale-invariant structure to hold onto when pediatric training data is scarce.</p>
+          <p class="au">A. Temtam, <b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, K. M. Iftekharuddin</p>
+          <div class="links"><button class="ch" data-bib="b10">BibTeX</button></div>
+          <pre class="bib" id="b10">@incollection{temtam2023pediatric,
   title     = {Pediatric brain tumor segmentation using multiresolution fractal
                deep neural network},
   author    = {Temtam, Ahmed and Sadique, Md Shibly and Rahman, M. M. and
@@ -667,14 +710,15 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
         </div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="workshop">
+      <article class="pub" data-s data-g="workshop">
+        <div class="pyr">2023</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> Springer 2023</span><span class="vfull">Cross-Modality Domain Adaptation for Medical Image Segmentation, 312-321</span></div>
+          <div class="pv">Cross-Modality Domain Adaptation for Medical Image Segmentation, 312-321</div>
           <h3>Local Synthesis of Healthy Brain Tissue Using an Enhanced 3D Pix2Pix Model for Medical Image Inpainting</h3>
-          <p class="take">Generating plausible healthy tissue where a tumor was, so downstream registration and atlas tools stop failing.</p>
-          <p class="auth"><b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, A. Glandon, A. Temtam, K. M. Iftekharuddin</p>
-          <div class="chips"><button class="chip" data-bib="b11"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b11">@incollection{sadique2023local,
+          <p class="tk">Generating plausible healthy tissue where a tumor was, so downstream registration and atlas tools stop failing.</p>
+          <p class="au"><b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, A. Glandon, A. Temtam, K. M. Iftekharuddin</p>
+          <div class="links"><button class="ch" data-bib="b11">BibTeX</button></div>
+          <pre class="bib" id="b11">@incollection{sadique2023local,
   title     = {Local synthesis of healthy brain tissue using an enhanced 3D
                Pix2Pix model for medical image inpainting},
   author    = {Sadique, Md Shibly and Rahman, M. M. and Farzana, Walia and
@@ -687,13 +731,14 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
       </article>
 
       <article class="pub" data-s data-g="workshop">
+        <div class="pyr">2022</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> MICCAI 2022</span><span class="vfull">International MICCAI Brainlesion Workshop, 205-215, Springer</span></div>
+          <div class="pv">International MICCAI Brainlesion Workshop, 205-215, Springer</div>
           <h3><a href="papers/sadique-2022-miccai-neural-ode.pdf">Brain Tumor Segmentation Using Neural Ordinary Differential Equations with UNet-Context Encoding Network</a></h3>
-          <p class="take">Continuous-depth modeling with shared weights across integration steps, cutting parameter count at comparable Dice accuracy.</p>
-          <p class="auth"><b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, A. Temtam, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/sadique-2022-miccai-neural-ode.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b12"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b12">@incollection{sadique2022brain,
+          <p class="tk">Continuous-depth modeling with shared weights across integration steps, cutting parameter count at comparable Dice accuracy.</p>
+          <p class="au"><b>M. S. Sadique</b>, M. M. Rahman, W. Farzana, A. Temtam, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/sadique-2022-miccai-neural-ode.pdf">Paper</a><button class="ch" data-bib="b12">BibTeX</button></div>
+          <pre class="bib" id="b12">@incollection{sadique2022brain,
   title     = {Brain tumor segmentation using neural ordinary differential
                equations with UNet-context encoding network},
   author    = {Sadique, Md Shibly and Rahman, M. M. and Farzana, Walia and
@@ -702,17 +747,18 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
   pages     = {205--215}, publisher = {Springer}, year = {2022}
 }</pre>
         </div>
-        <div class="pthumb"><img src="images/fig-segmentation.jpg" alt="" width="900" height="991" loading="lazy"></div>
+        <div class="thumb"><img src="images/fig-segmentation.jpg" alt="" width="900" height="991" loading="lazy"></div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="workshop">
+      <article class="pub" data-s data-g="workshop">
+        <div class="pyr">2021</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> MICCAI 2021</span><span class="vfull">International MICCAI Brainlesion Workshop, 463-472, Springer</span></div>
+          <div class="pv">International MICCAI Brainlesion Workshop, 463-472, Springer</div>
           <h3><a href="papers/sadique-unce-context-encoding.pdf">Brain Tumor Segmentation Using UNet-Context Encoding Network</a></h3>
-          <p class="take">The context-encoding baseline the later neural ODE variant was built on.</p>
-          <p class="auth">M. M. Rahman, <b>M. S. Sadique</b>, A. G. Temtam, W. Farzana, L. Vidyaratne, K. M. Iftekharuddin</p>
-          <div class="chips"><a class="chip" href="papers/sadique-unce-context-encoding.pdf"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> Paper</a><button class="chip" data-bib="b13"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b13">@incollection{rahman2021brain,
+          <p class="tk">The context-encoding baseline the later neural ODE variant was built on.</p>
+          <p class="au">M. M. Rahman, <b>M. S. Sadique</b>, A. G. Temtam, W. Farzana, L. Vidyaratne, K. M. Iftekharuddin</p>
+          <div class="links"><a class="ch" href="papers/sadique-unce-context-encoding.pdf">Paper</a><button class="ch" data-bib="b13">BibTeX</button></div>
+          <pre class="bib" id="b13">@incollection{rahman2021brain,
   title     = {Brain tumor segmentation using UNet-context encoding network},
   author    = {Rahman, M. M. and Sadique, Md Shibly and Temtam, Ahmed G. and
                Farzana, Walia and Vidyaratne, Lasitha and Iftekharuddin, Khan M.},
@@ -722,14 +768,15 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
         </div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="workshop">
+      <article class="pub" data-s data-g="workshop">
+        <div class="pyr">2021</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> MICCAI 2021</span><span class="vfull">International MICCAI Brainlesion Workshop, 357-366, Springer</span></div>
+          <div class="pv">International MICCAI Brainlesion Workshop, 357-366, Springer</div>
           <h3>Radiogenomic Prediction of MGMT Using Deep Learning with Bayesian Optimized Hyperparameters</h3>
-          <p class="take">Predicting MGMT methylation status from imaging, with the hyperparameter search treated as part of the method rather than a footnote.</p>
-          <p class="auth">W. Farzana, A. G. Temtam, Z. A. Shboul, M. M. Rahman, <b>M. S. Sadique</b>, K. M. Iftekharuddin</p>
-          <div class="chips"><button class="chip" data-bib="b14"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b14">@incollection{farzana2021radiogenomic,
+          <p class="tk">Predicting MGMT methylation status from imaging, with the hyperparameter search treated as part of the method rather than a footnote.</p>
+          <p class="au">W. Farzana, A. G. Temtam, Z. A. Shboul, M. M. Rahman, <b>M. S. Sadique</b>, K. M. Iftekharuddin</p>
+          <div class="links"><button class="ch" data-bib="b14">BibTeX</button></div>
+          <pre class="bib" id="b14">@incollection{farzana2021radiogenomic,
   title     = {Radiogenomic prediction of MGMT using deep learning with Bayesian
                optimized hyperparameters},
   author    = {Farzana, Walia and Temtam, Ahmed G. and Shboul, Zeina A. and
@@ -740,14 +787,15 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
         </div>
       </article>
 
-      <article class="pub nothumb" data-s data-g="preprint">
+      <article class="pub" data-s data-g="preprint">
+        <div class="pyr">2023</div>
         <div>
-          <div class="pmeta"><span class="vbadge"><svg><use href="#i-diamond"/></svg> arXiv 2023</span><span class="vfull">arXiv:2305.08992</span></div>
+          <div class="pv">arXiv:2305.08992</div>
           <h3><a href="https://arxiv.org/abs/2305.08992">The Brain Tumor Segmentation (BraTS) Challenge 2023: Local Synthesis of Healthy Brain Tissue via Inpainting</a></h3>
-          <p class="take">The challenge report for the inpainting task, written with the organizers and participating teams.</p>
-          <p class="auth">F. Kofler, F. Meissen, F. Steinbauer, R. Graf, … <b>M. S. Sadique</b>, et al.</p>
-          <div class="chips"><a class="chip" href="https://arxiv.org/abs/2305.08992"><svg style="width:13px;height:13px"><use href="#i-doc"/></svg> arXiv</a><button class="chip" data-bib="b15"><svg style="width:13px;height:13px"><use href="#i-quote"/></svg> BibTeX</button></div>
-          <pre class="bibtex hide" id="b15">@article{kofler2023brats,
+          <p class="tk">The challenge report for the inpainting task, written with the organizers and participating teams.</p>
+          <p class="au">F. Kofler, F. Meissen, F. Steinbauer, R. Graf, … <b>M. S. Sadique</b>, et al.</p>
+          <div class="links"><a class="ch" href="https://arxiv.org/abs/2305.08992">arXiv</a><button class="ch" data-bib="b15">BibTeX</button></div>
+          <pre class="bib" id="b15">@article{kofler2023brats,
   title  = {The Brain Tumor Segmentation (BraTS) challenge 2023: local synthesis
             of healthy brain tissue via inpainting},
   author = {Kofler, Florian and Meissen, Felix and Steinbauer, Fabian and
@@ -756,122 +804,100 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
 }</pre>
         </div>
       </article>
-
     </div>
   </div>
 </section>
 
-<section id="news" class="tinted">
-  <div class="wrap cols">
-    <div class="cols-head">
-      <p class="eyebrow"><svg><use href="#i-news"/></svg> Timeline</p>
-      <h2>News</h2>
-    </div>
-    <div class="news">
-      <div class="nitem" data-s><div class="ndate">Aug 2026</div><div class="nic"><svg><use href="#i-mic"/></svg></div>
-        <p>Presented adult-to-pediatric domain shift in brain tumor segmentation at <b>SPIE Optics + Photonics</b>, San Diego <span class="new">New</span></p></div>
-      <div class="nitem" data-s><div class="ndate">Jan 2025</div><div class="nic"><svg><use href="#i-check"/></svg></div>
-        <p>Paper published in <a href="papers/temtam-2025-cbm-functional-brain-networks.pdf">Computers in Biology and Medicine</a> on functional brain networks in opioid use disorder</p></div>
-      <div class="nitem" data-s><div class="ndate">Jan 2025</div><div class="nic"><svg><use href="#i-flask"/></svg></div>
-        <p>Started dissertation work on learnability in PDE-based tumor growth modeling under sampling noise</p></div>
-      <div class="nitem" data-s><div class="ndate">Jun 2024</div><div class="nic"><svg><use href="#i-check"/></svg></div>
-        <p>Paper published in the <a href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf">IEEE Journal of Biomedical and Health Informatics</a> on recurrence classification and survival prediction</p></div>
-      <div class="nitem" data-s><div class="ndate">Summer 2023</div><div class="nic"><svg><use href="#i-users"/></svg></div>
-        <p>Mentored an NSF-REU undergraduate on privacy-preserving federated learning with domain alignment</p></div>
-      <div class="nitem" data-s><div class="ndate">Apr 2023</div><div class="nic"><svg><use href="#i-mic"/></svg></div>
-        <p>Presented class activation mapping and uncertainty estimation in multi-organ segmentation at <b>SPIE Medical Imaging</b>, San Diego</p></div>
-      <div class="nitem" data-s><div class="ndate">May 2023</div><div class="nic"><svg><use href="#i-star"/></svg></div>
-        <p>Completed Medical Imaging De-Identification training, National Cancer Institute</p></div>
-      <div class="nitem" data-s><div class="ndate">Sep 2022</div><div class="nic"><svg><use href="#i-trophy"/></svg></div>
-        <p>Team lead, <b>eighth place</b> in the <a href="https://amos22.grand-challenge.org/final-ranking/">AMOS multi-organ segmentation challenge</a> at MICCAI 2022</p></div>
-      <div class="nitem" data-s><div class="ndate">Summer 2022</div><div class="nic"><svg><use href="#i-users"/></svg></div>
-        <p>Mentored an NSF-REU undergraduate on privacy-preserving medical image analysis for glioma prognosis</p></div>
-      <div class="nitem" data-s><div class="ndate">2021-2023</div><div class="nic"><svg><use href="#i-flask"/></svg></div>
-        <p>Contributed the UNCE-NODE framework across three years of the <a href="https://www.synapse.org/Synapse:syn53708126/wiki/626320">MICCAI BraTS challenge</a></p></div>
-      <div class="nitem" data-s><div class="ndate">2022, 2023</div><div class="nic"><svg><use href="#i-star"/></svg></div>
-        <p>Received SPIE Medical Imaging Student Conference Support</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="teaching">
-  <div class="wrap cols">
-    <div class="cols-head">
-      <p class="eyebrow"><svg><use href="#i-cap"/></svg> In the classroom</p>
-      <h2>Teaching</h2>
-    </div>
-    <div>
-      <p class="tnote"><span class="ic"><svg><use href="#i-user"/></svg></span> Teaching Assistant · Dept. of Electrical &amp; Computer Engineering, ODU · 2019-Present</p>
-      <div class="crow"><span class="ccode">ECE 481W</span><span class="cname">Preparatory ECE Senior Design</span><span class="cterm">Fall 2021 - Present</span></div>
-      <div class="crow"><span class="ccode">ECE 487</span><span class="cname">ECE Senior Design II (ABET)</span><span class="cterm">Fall 2021 - Present</span></div>
-      <div class="crow"><span class="ccode">ECE 287</span><span class="cname">Fundamental Electric Circuit Laboratory</span><span class="cterm">Summer 2025</span></div>
-      <div class="crow"><span class="ccode">ECE 302</span><span class="cname">Linear System Analysis</span><span class="cterm">Fall 2020</span></div>
-      <div class="crow"><span class="ccode">ECE 202</span><span class="cname">Circuit Analysis II</span><span class="cterm">Spring 2020</span></div>
-      <div class="crow"><span class="ccode">ECE 201</span><span class="cname">Circuit Analysis I</span><span class="cterm">Fall 2019</span></div>
-      <p class="tnote" style="margin-top:26px"><span class="ic"><svg><use href="#i-user"/></svg></span> Course Instructor · Dhaka International University · 2017</p>
-      <div class="crow"><span class="ccode">ECE 201</span><span class="cname">Circuit Analysis I and Laboratory</span><span class="cterm">Spring 2017, Fall 2017</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="service" class="tinted">
+<!-- ============================ TRAJECTORY ============================ -->
+<section class="banded" id="trajectory">
   <div class="wrap">
-    <p class="eyebrow"><svg><use href="#i-hands"/></svg> Community</p>
-    <h2 style="font-size:clamp(2.1rem,4.4vw,3.4rem);margin-bottom:34px">Service</h2>
-    <div class="sgrid">
-      <div>
-        <div class="sblock">
-          <h3><svg><use href="#i-id"/></svg> Memberships</h3>
-          <ul>
-            <li><b>IEEE</b> — Graduate Student Member</li>
-            <li><b>SPIE</b> — Student Member</li>
-          </ul>
-        </div>
-        <div class="sblock" style="margin-top:34px">
-          <h3><svg><use href="#i-review"/></svg> Peer reviewer</h3>
-          <ul>
-            <li><b>Franklin Open</b> (Elsevier)</li>
-            <li><b>ICIEV</b> — Informatics, Electronics &amp; Vision</li>
-            <li><b>ICIVPR</b> — Imaging, Vision &amp; Pattern Recognition</li>
-          </ul>
-        </div>
+    <div class="shead"><span class="snum">05</span><h2>Where this goes</h2><span class="aside">Five-year view</span></div>
+    <p style="color:var(--ink-2);max-width:64ch;margin-bottom:26px">A research program should be legible forward, not only backward. Here is what is finished, what is running, and what I would build first with a lab of my own.</p>
+    <div class="traj">
+      <div class="tcol">
+        <h3>Established</h3>
+        <div class="ti"><b>Uncertainty-aware segmentation</b><span>Ensemble methods that separate epistemic from aleatoric uncertainty and stratify errors for review.</span><span class="yrs">2018-present · 4 papers</span></div>
+        <div class="ti"><b>Prognosis under censoring</b><span>Radiomic features plus copula survival modeling for recurrence and outcome.</span><span class="yrs">2021-2024 · 2 papers</span></div>
+        <div class="ti"><b>Efficient architectures</b><span>Neural ODE segmentation at reduced parameter count.</span><span class="yrs">2021-2022 · 2 papers</span></div>
       </div>
-      <div>
-        <div class="sblock">
-          <h3><svg><use href="#i-trophy"/></svg> Research competitions</h3>
-          <div class="callout">
-            <div class="top"><b>AMOS 2022</b><span class="pill">8th place · team lead</span></div>
-            <p>Multi-modal Abdominal Multi-Organ Segmentation Challenge at MICCAI, placing eighth in both Task 1 and Task 2.</p>
-          </div>
-          <div class="callout" style="background:transparent">
-            <div class="top"><b>MICCAI BraTS</b><span class="pill">3 consecutive years</span></div>
-            <p>RSNA-ASNR-MICCAI Brain Tumor Segmentation Challenge, contributing the UNCE-NODE framework.</p>
-            <div class="years"><span>2021</span><span>2022</span><span>2023</span></div>
-          </div>
-        </div>
-        <div class="sblock" style="margin-top:34px">
-          <h3><svg><use href="#i-star"/></svg> Workshops &amp; training</h3>
-          <ul>
-            <li><b>CIRP 2025</b> — Co-clinical Imaging Research Resource Program</li>
-            <li><b>NCI 2023</b> — Medical Imaging De-Identification</li>
-            <li><b>DeapSECURE 2022</b> — big data and deep learning; volunteer tutor</li>
-          </ul>
-        </div>
+      <div class="tcol now">
+        <h3>In progress</h3>
+        <div class="ti"><b>Learnability under sampling noise</b><span>A Bayesian framework quantifying which tumor growth directions are recoverable from a given imaging schedule.</span><span class="yrs">2025-present · dissertation</span></div>
+        <div class="ti"><b>Physics-informed growth models</b><span>Reaction-diffusion constraints embedded in the network rather than fitted after it.</span><span class="yrs">2025-present</span></div>
+        <div class="ti"><b>Adult-to-pediatric transfer</b><span>Gradient-reversal alignment with voxel-level uncertainty on the transferred output.</span><span class="yrs">2023-2026</span></div>
+      </div>
+      <div class="tcol next">
+        <h3>First projects in a new lab</h3>
+        <div class="ti"><b>Identifiability as a design tool</b><span>Turning the learnability metric into something that recommends imaging schedules, not just evaluates them. A model that says "scan again at week six" is worth more than one that reports a number.</span></div>
+        <div class="ti"><b>Uncertainty that survives the clinic</b><span>Prospective validation with radiologists, measuring whether confidence maps change decisions rather than whether they correlate with error.</span></div>
+        <div class="ti"><b>Beyond neuro-oncology</b><span>The same three problems, small cohorts, censoring, distribution shift, appear across oncology. The methods should transfer; testing whether they do is the work.</span></div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div style="margin-top:44px">
-      <div class="tiles">
-        <a class="tile" href="cv.pdf"><svg><use href="#i-doc"/></svg> Academic CV</a>
-        <a class="tile" href="resume.pdf"><svg><use href="#i-doc"/></svg> Résumé</a>
-        <a class="tile" href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&amp;hl=en"><svg><use href="#i-scholar"/></svg> Google Scholar</a>
-        <a class="tile" href="https://orcid.org/0000-0002-6734-6802"><svg><use href="#i-orcid"/></svg> ORCID</a>
-        <a class="tile" href="https://github.com/shiblyg"><svg><use href="#i-github"/></svg> GitHub</a>
-        <a class="tile" href="https://www.linkedin.com/in/md-shibly-sadique-277b891a5/"><svg><use href="#i-linkedin"/></svg> LinkedIn</a>
-        <a class="tile" href="cv.html"><svg><use href="#i-book"/></svg> CV on the web</a>
-        <a class="tile" href="mailto:msadi002@odu.edu"><svg><use href="#i-mail"/></svg> Email me</a>
+<!-- ============================ STUDENTS ============================ -->
+<section id="students">
+  <div class="wrap">
+    <div class="shead"><span class="snum">06</span><h2>For prospective students</h2><span class="aside">Mentoring</span></div>
+    <div class="stu">
+      <div>
+        <p style="color:var(--ink-2);margin-bottom:20px">I have mentored two NSF-REU undergraduates and several Vision Lab researchers. They came from computer science, from electrical engineering with almost no computational background, and from institutions with no medical imaging exposure at all. Every one of them shipped something in ten weeks, which taught me that the binding constraint is rarely talent and almost always structure.</p>
+        <p style="color:var(--ink-2);margin-bottom:20px">So: weekly milestones, reproducible practice from week one, HPC access early rather than as a reward, and explicit instruction in the things usually left implicit. How to read a paper for its method rather than its claims. When a negative result is worth writing up. How to ask for help before a week is gone.</p>
+        <p style="color:var(--ink-2)">If you are considering this area, you do not need a medical background. You need to be comfortable being wrong in public, and interested in why a model failed rather than only in whether it did.</p>
+      </div>
+      <div>
+        <div class="ask"><b>Questions I would hand a new student</b><span>Does an uncertainty estimate change what a clinician actually does, or does it just correlate with error? Nobody has measured this properly.</span></div>
+        <div class="ask"><b></b><span>When a model transfers badly to a new hospital, can you tell in advance from the images alone, before you have any labels?</span></div>
+        <div class="ask"><b></b><span>How few scans can you take and still identify a patient's tumor growth parameters? There should be a bound, and it should be computable.</span></div>
+        <div class="ask" style="border-left-color:var(--edema)"><b>What I look for</b><span>Persistence with debugging, willingness to read outside your field, and the habit of writing down what you tried. Not prior publications.</span></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============================ TEACHING ============================ -->
+<section class="banded" id="teaching">
+  <div class="wrap">
+    <div class="shead"><span class="snum">07</span><h2>Teaching</h2><span class="aside">7 years</span></div>
+    <div class="pgrid">
+      <div>
+        <p style="color:var(--ink-2);margin-bottom:18px">Seven years across circuits, linear systems, and signals, plus a year as instructor of record in Bangladesh. The senior design work added something the TA roles did not: course administration, Canvas module design, and ABET outcome reporting, which is the unglamorous machinery that keeps a degree accredited.</p>
+        <p style="color:var(--ink-2);margin-bottom:18px">I would develop <b>Applications of AI in Biomedical Imaging and Health Sciences</b>, covering learning methods for diagnosis and treatment planning alongside the ethics of deploying them, with laboratory modules on registration, segmentation, and computational modeling in FSL, ANTs, 3D Slicer, and PyTorch.</p>
+        <p style="color:var(--ink-2)">Courses I can teach immediately: Circuit Analysis I and II, Linear Systems and Signals, Digital Signal Processing, Digital Communications, Senior Design, Machine Learning and Deep Learning, Digital Image Processing, Computer Vision, Medical Image Analysis.</p>
+      </div>
+      <div>
+        <p class="role">Teaching assistant · Old Dominion University</p>
+        <div class="crow"><span class="c">ECE 481W</span><span class="t">Preparatory Senior Design</span><span class="w">2021-present</span></div>
+        <div class="crow"><span class="c">ECE 487</span><span class="t">Senior Design II (ABET)</span><span class="w">2021-present</span></div>
+        <div class="crow"><span class="c">ECE 287</span><span class="t">Electric Circuit Laboratory</span><span class="w">Summer 2025</span></div>
+        <div class="crow"><span class="c">ECE 302</span><span class="t">Linear System Analysis</span><span class="w">Fall 2020</span></div>
+        <div class="crow"><span class="c">ECE 202</span><span class="t">Circuit Analysis II</span><span class="w">Spring 2020</span></div>
+        <div class="crow"><span class="c">ECE 201</span><span class="t">Circuit Analysis I</span><span class="w">Fall 2019</span></div>
+        <p class="role">Instructor of record · Dhaka International University</p>
+        <div class="crow"><span class="c">ECE 201</span><span class="t">Circuit Analysis I and Laboratory</span><span class="w">2017</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ NEWS ============================ -->
+<section id="news">
+  <div class="wrap">
+    <div class="shead"><span class="snum">08</span><h2>News</h2><span class="aside">Recent</span></div>
+    <ul class="news">
+      <li data-s><time>Aug 2026</time><p>Presented adult-to-pediatric domain shift in brain tumor segmentation at <b>SPIE Optics + Photonics</b>, San Diego <span class="new">New</span></p></li>
+      <li data-s><time>Jan 2025</time><p>Paper published in <a href="papers/temtam-2025-cbm-functional-brain-networks.pdf">Computers in Biology and Medicine</a> on functional brain networks in opioid use disorder</p></li>
+      <li data-s><time>Jan 2025</time><p>Began dissertation work on learnability in PDE-based tumor growth modeling under sampling noise</p></li>
+      <li data-s><time>Jun 2024</time><p>Paper published in <a href="papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf">IEEE Journal of Biomedical and Health Informatics</a> on recurrence classification and survival prediction</p></li>
+      <li data-s><time>May 2023</time><p>Completed Medical Imaging De-Identification training, National Cancer Institute</p></li>
+      <li data-s><time>Summer 2023</time><p>Mentored an NSF-REU undergraduate on privacy-preserving federated learning with domain alignment</p></li>
+      <li data-s><time>Apr 2023</time><p>Presented class activation mapping and uncertainty estimation at <b>SPIE Medical Imaging</b>, San Diego</p></li>
+      <li data-s><time>Sep 2022</time><p>Team lead, eighth place in the <a href="https://amos22.grand-challenge.org/final-ranking/">AMOS multi-organ segmentation challenge</a> at MICCAI</p></li>
+      <li data-s><time>Summer 2022</time><p>Mentored an NSF-REU undergraduate on privacy-preserving medical image analysis for glioma prognosis</p></li>
+      <li data-s><time>2021-2026</time><p>Ongoing participation in the <a href="https://www.synapse.org/Synapse:syn53708126/wiki/626320">MICCAI BraTS challenge</a>, contributing the UNCE-NODE framework</p></li>
+      <li data-s><time>2022, 2023</time><p>SPIE Medical Imaging Student Conference Support</p></li>
+    </ul>
   </div>
 </section>
 
@@ -879,11 +905,11 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
 
 <footer id="contact">
   <div class="wrap">
-    <div class="fgrid">
+    <div class="fg">
       <div>
-        <p class="eyebrow" style="color:#7BC7CE">Get in touch</p>
-        <h2>Let's make medical AI worth trusting.</h2>
-        <p>Open to collaborations in medical image analysis, uncertainty quantification, and clinical AI — and to research positions starting mid-2027.</p>
+        <p class="kicker" style="color:#7FA9E0">Contact</p>
+        <h2>I am on the market for positions starting mid-2027.</h2>
+        <p>Open to collaborations in medical image analysis, uncertainty quantification, and physics-informed modeling. If you are a prospective student, write to me with a question you find interesting rather than a CV.</p>
         <p style="margin-top:16px"><a href="mailto:msadi002@odu.edu">msadi002@odu.edu</a></p>
       </div>
       <div>
@@ -896,6 +922,8 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
       <div>
         <h4>Elsewhere</h4>
         <ul>
+          <li><a href="cv.pdf">Academic CV</a></li>
+          <li><a href="resume.pdf">Résumé</a></li>
           <li><a href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&amp;hl=en">Google Scholar</a></li>
           <li><a href="https://orcid.org/0000-0002-6734-6802">ORCID</a></li>
           <li><a href="https://github.com/shiblyg">GitHub</a></li>
@@ -903,16 +931,7 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
         </ul>
       </div>
     </div>
-    <div class="fbot">
-      <span>© 2026 Md Shibly Sadique · Vision Lab, Old Dominion University · Norfolk, VA</span>
-      <div class="fsoc">
-        <a href="mailto:msadi002@odu.edu" aria-label="Email"><svg><use href="#i-mail"/></svg></a>
-        <a href="https://github.com/shiblyg" aria-label="GitHub"><svg><use href="#i-github"/></svg></a>
-        <a href="https://www.linkedin.com/in/md-shibly-sadique-277b891a5/" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
-        <a href="https://scholar.google.com/citations?user=EWnmhbgAAAAJ&amp;hl=en" aria-label="Google Scholar"><svg><use href="#i-scholar"/></svg></a>
-        <a href="https://orcid.org/0000-0002-6734-6802" aria-label="ORCID"><svg><use href="#i-orcid"/></svg></a>
-      </div>
-    </div>
+    <div class="fb"><span>© 2026 Md Shibly Sadique</span><span>Vision Lab · Old Dominion University</span></div>
   </div>
 </footer>
 
@@ -922,120 +941,164 @@ html[data-theme="dark"] .fsoc a{border-color:var(--rule);color:var(--ink-2)}
 "email":"mailto:msadi002@odu.edu","jobTitle":"PhD Candidate",
 "affiliation":{"@type":"Organization","name":"Old Dominion University"},
 "alumniOf":[{"@type":"Organization","name":"University of Dhaka"}],
-"knowsAbout":["Biomedical image analysis","Brain tumor segmentation","Uncertainty quantification","Deep learning","Medical imaging"],
+"knowsAbout":["Biomedical image analysis","Uncertainty quantification","Brain tumor segmentation","Physics-informed machine learning","Survival analysis"],
 "identifier":"https://orcid.org/0000-0002-6734-6802",
 "sameAs":["https://scholar.google.com/citations?user=EWnmhbgAAAAJ&hl=en","https://orcid.org/0000-0002-6734-6802","https://github.com/shiblyg","https://www.linkedin.com/in/md-shibly-sadique-277b891a5/"]}
 </script>
 
 <script>
 (function(){
-  "use strict";
-  var root=document.documentElement, ls=null;
-  try{ ls=window.localStorage; }catch(e){}
+"use strict";
+var root=document.documentElement, ls=null;
+try{ls=window.localStorage;}catch(e){}
 
-  /* ---- dark mode ---- */
-  var themeBtn=document.getElementById("theme");
-  function setTheme(dark){
-    root.setAttribute("data-theme", dark?"dark":"light");
-    themeBtn.setAttribute("aria-pressed", String(dark));
-    if(ls){ try{ ls.setItem("theme", dark?"dark":"light"); }catch(e){} }
-  }
-  var saved=null; if(ls){ try{ saved=ls.getItem("theme"); }catch(e){} }
-  setTheme(saved ? saved==="dark"
-                 : window.matchMedia("(prefers-color-scheme: dark)").matches);
-  themeBtn.addEventListener("click",function(){
-    setTheme(root.getAttribute("data-theme")!=="dark");
+/* ---------- theme + legibility ---------- */
+function toggler(btn,apply,key){
+  var on=false;
+  function set(v){on=v;apply(v);btn.setAttribute("aria-pressed",String(v));
+    if(ls){try{ls.setItem(key,v?"1":"0");}catch(e){}}}
+  var saved=null; if(ls){try{saved=ls.getItem(key);}catch(e){}}
+  return {set:set, saved:saved, init:function(d){set(saved===null?d:saved==="1");
+    btn.addEventListener("click",function(){set(!on);});}};
+}
+var t=toggler(document.getElementById("theme"),
+  function(v){root.setAttribute("data-theme",v?"dark":"light");},"theme");
+t.init(window.matchMedia("(prefers-color-scheme: dark)").matches);
+var l=toggler(document.getElementById("legible"),
+  function(v){document.body.classList.toggle("legible",v);},"legible");
+l.init(false);
+
+/* ---------- research program map ---------- */
+var X0=200, X1=975, Y0=30, Y1=348, YR0=2018, YR1=2028;
+function x(y){return X0+(y-YR0)/(YR1-YR0)*(X1-X0);}
+var LANE={a:{y:46,h:34,c:"#1E4E8C"},b:{y:146,h:34,c:"#B8860B"},c:{y:216,h:34,c:"#A8403D"}};
+var PROJ=[
+ {id:"seg", lane:"a", row:0, s:2018, e:2026.9, label:"Tumor segmentation (UNCE-NODE)",
+  meta:"2018-present · NIH/NIBIB · 4 papers",
+  body:"Neural ODE segmentation with continuous depth and shared weights across integration steps, cutting trainable parameters by roughly 30% at comparable Dice accuracy. Extended to Sub-Saharan African cohorts and to healthy-tissue inpainting for BraTS 2023. Participation in the BraTS challenge is ongoing through 2026.",
+  links:[["MICCAI 2022","papers/sadique-2022-miccai-neural-ode.pdf"],["MICCAI 2021","papers/sadique-unce-context-encoding.pdf"]]},
+ {id:"unc", lane:"a", row:1, s:2021, e:2023.6, label:"Uncertainty-aware multi-organ",
+  meta:"2021-2023 · AMOS challenge · 1 paper",
+  body:"Ensemble nnU-Nets separating entropy-based total uncertainty from mutual-information epistemic uncertainty, so that only the fixable kind triggers human review. Eighth place in AMOS at MICCAI 2022 as team lead.",
+  links:[["SPIE 2023","papers/sadique-2023-spie-cam-uncertainty.pdf"]]},
+ {id:"ped", lane:"b", row:0, s:2023, e:2026.4, label:"Adult-to-pediatric domain shift",
+  meta:"2023-2026 · Domain adaptation",
+  body:"Multiresolution fractal descriptors with gradient-reversal domain alignment, transferring from a large adult glioma cohort to a much smaller pediatric one, with Monte-Carlo dropout flagging the voxels where transfer failed.",
+  links:[]},
+ {id:"rec", lane:"c", row:0, s:2021, e:2024.6, label:"Recurrence vs. necrosis, prognosis",
+  meta:"2021-2024 · NIH/NIBIB · 2 papers",
+  body:"Multiresolution radiomic and fractal features separating recurrence from radiation necrosis, with a copula survival model that handles the dependent censoring standard Cox regression assumes away.",
+  links:[["IEEE JBHI 2024","papers/sadique-2024-ieee-jbhi-recurrence-survival.pdf"],["SPIE 2022","papers/sadique-2022-spie-radiomic-texture.pdf"]]},
+ {id:"oud", lane:"c", row:1, s:2021, e:2025.4, label:"Functional brain networks (OUD)",
+  meta:"2021-2025 · NIH · 2 papers",
+  body:"Wavelet features from resting-state fMRI BOLD signals with LASSO selection and random forest classification, designed so the discriminative networks are readable rather than only the accuracy.",
+  links:[["Comput Biol Med 2025","papers/temtam-2025-cbm-functional-brain-networks.pdf"],["SPIE 2023","papers/temtam-oud-prediction-fmri-ml.pdf"]]},
+ {id:"phys", lane:"c", row:2, s:2025, e:2027.9, label:"Physics-informed growth",
+  meta:"2025-present · Dissertation",
+  body:"A Resolvable Expressive Capacity framework with eigentask decomposition and Bayesian inference, characterizing which tumor growth directions are identifiable from a given observation schedule and which are not.",
+  links:[]}
+];
+var NOW=2026.67;
+var svgns="http://www.w3.org/2000/svg";
+function el(n,a){var e=document.createElementNS(svgns,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+var g=document.getElementById("grid");
+for(var yv=YR0;yv<=YR1;yv++){
+  g.appendChild(el("line",{class:"gridline",x1:x(yv),y1:Y0,x2:x(yv),y2:Y1}));
+  var tx=el("text",{class:"yr",x:x(yv),y:Y1+18,"text-anchor":"middle"});
+  tx.textContent=yv; g.appendChild(tx);
+}
+var nl=document.getElementById("nowline"); nl.setAttribute("x1",x(NOW)); nl.setAttribute("x2",x(NOW));
+var nt=document.getElementById("nowtext"); nt.setAttribute("x",x(NOW)); nt.setAttribute("text-anchor","middle");
+
+var bars=document.getElementById("bars"), byId={};
+PROJ.forEach(function(p){
+  var L=LANE[p.lane], y=L.y+p.row*(L.h+6), w=x(p.e)-x(p.s);
+  var grp=el("g",{class:"projbar","data-id":p.id,"data-lane":p.lane,tabindex:"0",role:"button",
+                  "aria-label":p.label+", "+p.meta});
+  grp.appendChild(el("rect",{x:x(p.s),y:y,width:w,height:L.h,fill:L.c}));
+  var t2=el("text",{x:x(p.s)+11,y:y+L.h/2+4.5}); t2.textContent=p.label;
+  grp.appendChild(t2); bars.appendChild(grp); byId[p.id]=grp;
+  function pick(){select(p);}
+  grp.addEventListener("click",pick);
+  grp.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();pick();}});
+});
+
+var rt=document.getElementById("r-title"), rm=document.getElementById("r-meta"),
+    rb=document.getElementById("r-body"), rlk=document.getElementById("r-links");
+function select(p){
+  PROJ.forEach(function(q){byId[q.id].classList.toggle("sel",q.id===p.id);});
+  rt.textContent=p.label; rm.textContent=p.meta; rb.textContent=p.body;
+  rlk.innerHTML="";
+  p.links.forEach(function(L){
+    var a=document.createElement("a"); a.className="rl"; a.href=L[1]; a.textContent=L[0]; rlk.appendChild(a);
   });
-
-  /* ---- high-legibility text ---- */
-  var dysBtn=document.getElementById("dys");
-  function setDys(on){
-    document.body.classList.toggle("dys",on);
-    dysBtn.setAttribute("aria-pressed",String(on));
-    if(ls){ try{ ls.setItem("dys", on?"1":"0"); }catch(e){} }
-  }
-  var dsaved=null; if(ls){ try{ dsaved=ls.getItem("dys"); }catch(e){} }
-  setDys(dsaved==="1");
-  dysBtn.addEventListener("click",function(){ setDys(!document.body.classList.contains("dys")); });
-
-  /* ---- publication filter ---- */
-  var fbtns=document.querySelectorAll(".fbtn"),
-      pubs=document.querySelectorAll("#publist .pub"),
-      activeFilter="all";
-  function applyFilter(){
-    pubs.forEach(function(p){
-      p.dataset.filtered = (activeFilter==="all"||p.dataset.g===activeFilter) ? "" : "1";
+}
+document.querySelectorAll(".lg").forEach(function(b){
+  b.addEventListener("click",function(){
+    var lane=b.dataset.lane;
+    document.querySelectorAll(".lg").forEach(function(o){
+      var on=o===b, col=o.style.getPropertyValue("--c");
+      o.setAttribute("aria-pressed",String(on));
+      o.style.background=on&&col?col:"";
+      o.style.borderColor=on&&col?col:"";
+      o.style.color=on&&col?"#fff":"";
     });
-    render();
-  }
-  fbtns.forEach(function(b){
-    b.addEventListener("click",function(){
-      activeFilter=b.dataset.f;
-      fbtns.forEach(function(x){ x.setAttribute("aria-pressed",String(x===b)); });
-      applyFilter();
+    PROJ.forEach(function(p){
+      byId[p.id].classList.toggle("dim", lane!=="all" && p.lane!==lane);
     });
   });
+});
 
-  /* ---- BibTeX reveal + copy ---- */
-  document.querySelectorAll("[data-bib]").forEach(function(btn){
-    var pre=document.getElementById(btn.dataset.bib);
-    if(!pre) return;
-    btn.setAttribute("aria-expanded","false");
-    btn.setAttribute("aria-controls",btn.dataset.bib);
-    btn.addEventListener("click",function(){
-      var open=pre.classList.toggle("hide")===false;
-      btn.setAttribute("aria-expanded",String(open));
-      if(!open||!navigator.clipboard) return;
-      navigator.clipboard.writeText(pre.textContent).then(function(){
-        var was=btn.innerHTML; btn.textContent="Copied";
-        setTimeout(function(){ btn.innerHTML=was; },1500);
-      }).catch(function(){});
-    });
+/* ---------- publication filter + bibtex + search ---------- */
+var fb=document.querySelectorAll(".f"), pubs=document.querySelectorAll("#publist .pub"), flt="all", term="";
+var items=document.querySelectorAll("[data-s]");
+items.forEach(function(e){e.dataset.txt=(e.textContent||"").toLowerCase();});
+var qn=document.getElementById("qn");
+function render(){
+  var n=0;
+  items.forEach(function(e){
+    var okF=!e.classList.contains("pub")||flt==="all"||e.dataset.g===flt;
+    var okT=!term||e.dataset.txt.indexOf(term)>-1;
+    e.classList.toggle("hide",!(okF&&okT)); if(okF&&okT)n++;
   });
-
-  /* ---- search across publications, research, news ---- */
-  var sbtn=document.getElementById("searchbtn"), bar=document.getElementById("searchbar"),
-      q=document.getElementById("q"), qc=document.getElementById("qcount"),
-      items=document.querySelectorAll("[data-s]"), term="";
-  items.forEach(function(el){ el.dataset.text=(el.textContent||"").toLowerCase(); });
-
-  function render(){
-    var shown=0;
-    items.forEach(function(el){
-      var okFilter = el.dataset.filtered!=="1";
-      var okTerm   = !term || el.dataset.text.indexOf(term)>-1;
-      var show = okFilter && okTerm;
-      el.classList.toggle("hide",!show);
-      if(show) shown++;
-    });
-    if(term){ qc.textContent = shown+(shown===1?" match":" matches"); }
-    else{ qc.textContent=""; }
-  }
-  sbtn.addEventListener("click",function(){
-    var open=bar.classList.toggle("open");
-    sbtn.setAttribute("aria-pressed",String(open));
-    if(open){ q.focus(); } else { q.value=""; term=""; render(); }
+  qn.textContent=term?n+(n===1?" match":" matches"):"";
+}
+fb.forEach(function(b){b.addEventListener("click",function(){
+  flt=b.dataset.f; fb.forEach(function(o){o.setAttribute("aria-pressed",String(o===b));}); render();});});
+document.querySelectorAll("[data-bib]").forEach(function(b){
+  var pre=document.getElementById(b.dataset.bib); if(!pre)return;
+  b.setAttribute("aria-expanded","false"); b.setAttribute("aria-controls",b.dataset.bib);
+  b.addEventListener("click",function(){
+    var open=pre.classList.toggle("open"); b.setAttribute("aria-expanded",String(open));
+    if(!open||!navigator.clipboard)return;
+    navigator.clipboard.writeText(pre.textContent).then(function(){
+      var was=b.textContent; b.textContent="Copied";
+      setTimeout(function(){b.textContent=was;},1400);}).catch(function(){});
   });
-  q.addEventListener("input",function(){ term=q.value.trim().toLowerCase(); render(); });
-  q.addEventListener("keydown",function(e){ if(e.key==="Escape"){ sbtn.click(); } });
+});
+var sb=document.getElementById("sbtn"), sbar=document.getElementById("sbar"), q=document.getElementById("q");
+sb.addEventListener("click",function(){
+  var on=sbar.classList.toggle("on"); sb.setAttribute("aria-pressed",String(on));
+  if(on){q.focus();}else{q.value="";term="";render();}
+});
+q.addEventListener("input",function(){term=q.value.trim().toLowerCase();render();});
+q.addEventListener("keydown",function(e){if(e.key==="Escape")sb.click();});
 
-  /* ---- highlight the section in view ---- */
-  var links={}, ids=[];
-  document.querySelectorAll(".mainnav a").forEach(function(a){
-    var id=a.getAttribute("href").slice(1); links[id]=a; ids.push(id);
-  });
-  var targets=ids.map(function(i){ return document.getElementById(i); }).filter(Boolean);
-  if("IntersectionObserver" in window && targets.length){
-    var seen={};
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){ seen[e.target.id]=e.isIntersecting; });
-      ids.forEach(function(i){ if(links[i]) links[i].classList.remove("on"); });
-      for(var k=0;k<targets.length;k++){
-        if(seen[targets[k].id]){ links[targets[k].id].classList.add("on"); break; }
-      }
-    },{rootMargin:"-72px 0px -68% 0px"});
-    targets.forEach(function(t){ io.observe(t); });
-  }
+/* ---------- active section ---------- */
+var links={},ids=[];
+document.querySelectorAll("nav.secs a").forEach(function(a){
+  var id=a.getAttribute("href").slice(1); links[id]=a; ids.push(id);});
+var tg=ids.map(function(i){return document.getElementById(i);}).filter(Boolean);
+if("IntersectionObserver" in window && tg.length){
+  var seen={};
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){seen[e.target.id]=e.isIntersecting;});
+    ids.forEach(function(i){if(links[i])links[i].classList.remove("on");});
+    for(var k=0;k<tg.length;k++){if(seen[tg[k].id]){links[tg[k].id].classList.add("on");break;}}
+  },{rootMargin:"-60px 0px -70% 0px"});
+  tg.forEach(function(x2){io.observe(x2);});
+}
 })();
 </script>
 </body>
