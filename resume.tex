@@ -1,0 +1,131 @@
+% Md Shibly Sadique - one-page resume
+% Build: pdflatex resume.tex   (run twice for stable links)
+% Companion to cv.tex, which is the long-form academic version.
+% Typeface and metrics follow the reference template: Libertinus Serif, 10pt,
+% 0.6in side margins, centered header, italic summary between rules.
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[left=0.58in,right=0.58in,top=0.4in,bottom=0.35in]{geometry}
+\usepackage{libertinus}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{link}{HTML}{1F4E8C}
+\definecolor{muted}{HTML}{3A3A3A}
+
+\hypersetup{
+  colorlinks=true, urlcolor=link, linkcolor=link,
+  pdfauthor={Md Shibly Sadique},
+  pdftitle={Resume - Md Shibly Sadique}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{0.99}
+\pagestyle{empty}
+\raggedright
+
+\SetTracking{encoding=*}{110}
+\newcommand{\spaced}[1]{\lsstyle #1}
+
+% section heading: letterspaced small caps with a rule running to the right margin
+\newcommand{\rsection}[1]{%
+  \vspace{4.5pt}%
+  \noindent{\scshape\spaced{#1}}\hspace{6pt}%
+  {\leaders\hrule height \dimexpr0.4ex+0.9pt\relax depth -0.4ex\hfill}\kern0pt%
+  \par\vspace{6pt}}
+
+\setlist[itemize]{leftmargin=12pt,itemsep=0pt,topsep=1.5pt,parsep=0pt,label=\textbullet}
+
+% \job{employer}{role}{location}{dates}
+\newcommand{\job}[4]{%
+  \noindent{\scshape #1} \,-\, \textit{#2}\hfill{\textit{#3}\quad\textbf{#4}}\par\vspace{1pt}}
+
+\begin{document}
+
+%%% ---------------------------------------------- header
+\begin{center}
+{\LARGE\scshape\spaced{Md Shibly Sadique}}\par\vspace{2pt}
+PhD Candidate, Biomedical Image Analysis, Old Dominion University\par\vspace{2pt}
+{\small +1 (757) 895-6050 \;$\cdot$\;
+\href{mailto:msadi002@odu.edu}{msadi002@odu.edu} \;$\cdot$\;
+\href{https://shiblyg.github.io}{shiblyg.github.io} \;$\cdot$\;
+\href{https://www.linkedin.com/in/md-shibly-sadique-277b891a5/}{linkedin.com/in/md-shibly-sadique} \;$\cdot$\;
+\href{https://scholar.google.com/citations?user=EWnmhbgAAAAJ&hl=en}{Google Scholar}}
+\end{center}
+
+\vspace{7pt}
+
+\textit{PhD candidate with eight years of research experience in medical image analysis and machine learning, graduating July
+2027. Demonstrated expertise in designing, training, and evaluating deep learning models with PyTorch, TensorFlow, and
+Scikit-learn for 3D volumetric MRI and CT. Authored fifteen peer-reviewed publications and led a team in an international
+segmentation challenge. Aiming to apply uncertainty-aware modeling skills to deliver reliable clinical AI systems.}
+
+\vspace{3pt}
+
+%%% ---------------------------------------------- experience
+\rsection{Experience}
+
+\job{Old Dominion University}{Graduate Research Assistant, Vision Lab}{Norfolk, VA}{2018 - Present}
+\begin{itemize}
+\item Developed UNCE-NODE, a neural ODE-enhanced U-Net for multimodal MRI tumor segmentation, cutting trainable parameters by roughly 30\% and accelerating inference while holding Dice accuracy.
+\item Built a classifier separating recurrent brain tumor from radiation necrosis on multiresolution radiomic features, reaching AUC $0.892 \pm 0.055$ on NIH/NIBIB-funded data.
+\item Designed a copula-based survival pipeline handling dependent censoring in glioblastoma; cross-validated AUC $\approx 0.77$, outperforming Cox regression.
+\item Implemented an uncertainty quantification framework over ensemble nnU-Nets, combining entropy and mutual-information estimates to stratify erroneous segmentations; led a team to eighth place in the AMOS 2022 challenge.
+\end{itemize}
+
+\vspace{2pt}
+\job{Old Dominion University}{Graduate Teaching Assistant}{Norfolk, VA}{2019 - Present}
+\begin{itemize}
+\item Ran problem sessions and laboratories for circuits, linear systems, and signals courses; built MATLAB/Simulink and Multisim exercises tying theory to application.
+\item Supported ECE 481W/487 Senior Design from 2021, developing course materials and ABET outcome reports.
+\item Mentored two NSF-REU undergraduates through summer projects on privacy-preserving and federated medical image analysis.
+\end{itemize}
+
+\vspace{2pt}
+\job{University of Dhaka}{Research Assistant, Microwave \& Optical Fiber Lab}{Dhaka, BD}{2014 - 2016}
+\begin{itemize}
+\item Built the lab's simulation, fabrication, and measurement capability for microstrip patch antenna research.
+\end{itemize}
+
+%%% ---------------------------------------------- publications
+\rsection{Selected Publications}
+\begin{itemize}
+\item \textbf{Sadique, M.S.}, et al. Brain Tumor Recurrence vs. Radiation Necrosis Classification and Patient Survivability Prediction. \textit{IEEE Journal of Biomedical and Health Informatics}, 2024.
+\item Temtam, A., \dots \textbf{Sadique, M.S.}, et al. Functional Brain Network Identification in Opioid Use Disorder Using Machine Learning of Resting-State fMRI. \textit{Computers in Biology and Medicine}, 2025.
+\item \textbf{Sadique, M.S.}, et al. Class Activation Mapping and Uncertainty Estimation in Multi-Organ Segmentation. \textit{SPIE Medical Imaging}, 2023.
+\item Twelve further peer-reviewed papers across MICCAI Brainlesion, SPIE Medical Imaging, and Springer book chapters.
+\end{itemize}
+
+%%% ---------------------------------------------- projects
+\rsection{Selected Projects}
+\begin{itemize}
+\item \textbf{Adult-to-Pediatric Domain Adaptation} (2026) \,-\, gradient-reversal domain alignment with multiresolution fractal features, transferring 1{,}251 adult glioma cases to 228 pediatric cases; presented at SPIE Optics + Photonics.
+\item \textbf{Learnability Under Sampling Noise} (2025-) \,-\, Resolvable Expressive Capacity framework with eigentask decomposition, quantifying which tumor growth directions a PDE model recovers from noisy imaging.
+\end{itemize}
+
+%%% ---------------------------------------------- skills
+\rsection{Technical Skills}
+\begin{itemize}
+\item \textbf{Languages \& tools:} Python, MATLAB, R, C, Shell, Git, \LaTeX, Docker, CUDA, Slurm (HPC)
+\item \textbf{Machine learning:} PyTorch, TensorFlow, Keras, Scikit-learn, OpenCV; CNN, RNN, LSTM, U-Net, nnU-Net, Neural ODEs, Transformers, Diffusion Models, Transfer Learning, Domain Adaptation
+\item \textbf{Medical imaging:} FSL, FreeSurfer, 3D Slicer, ANTs, SimpleITK, NiBabel, ITK-SNAP, MIPAV, MedPerf
+\item \textbf{Statistics:} Survival analysis, copula modeling, uncertainty quantification, feature selection, PCA, LDA
+\end{itemize}
+
+%%% ---------------------------------------------- education
+\rsection{Education}
+
+\noindent\textbf{Ph.D., Electrical \& Computer Engineering} \,-\, Old Dominion University\hfill{\small 2018 - July 2027 (expected)}\par
+\noindent\textbf{M.Sc., Electrical \& Electronic Engineering} \,-\, University of Dhaka\hfill{\small 2014 - 2016}\par
+\noindent\textbf{B.Sc., Electrical \& Electronic Engineering} \,-\, University of Dhaka\hfill{\small 2010 - 2014}\par
+
+%%% ---------------------------------------------- honors
+\rsection{Honors}
+SPIE Medical Imaging Student Conference Support (2022, 2023) \;$\cdot$\; Team Lead, Eighth Place, AMOS Multi-Organ
+Segmentation Challenge (2022) \;$\cdot$\; BraTS Challenge participant (2021-2023) \;$\cdot$\; NSICT Fellowship for M.S.
+Thesis, Bangladesh (2015) \;$\cdot$\; IEEE Graduate Student Member; SPIE Student Member
+
+\end{document}
